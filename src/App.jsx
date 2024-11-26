@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./css/style.css";
 import FileUpload from "./components/FileUpload";
 import ProgressBar from "./components/ProgressBar";

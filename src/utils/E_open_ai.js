@@ -1,26 +1,19 @@
 import PropTypes from "prop-types";
+import Config from './config/config';
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY_JE;
 
-/**
- * Calls OpenAI's API to process user data and return a response.
- * @param {string} userData - Input data to be analyzed.
- * @param {Object} schema - JSON schema for structured output.
- * @param {string} promptType - Type of prompt (info, data, or charts).
- * @param {boolean} secondPass - Indicates if it's a second API pass for data completion.
- * @returns {Promise<string>} JSON response from OpenAI.
- */
 async function callAPI(userData, schema, promptType, secondPass = false) {
     const systemPrompt = {
-        info: "Génère un JSON structuré avec des informations clés sur l'entreprise...",
+        info: "Génère un JSON structuré avec des informations clés sur lentreprise, en résumant les données financières et les aspects importants des comptes.",
         data: secondPass
-            ? "Complète un JSON structuré avec des données CSV..."
-            : "Génère un JSON structuré avec des données CSV...",
-        charts: "Génère des données JSON structurées pour des graphiques financiers...",
+            ? "Génère un JSON structuré avec une structuration abrégée des comptes en format CSV. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs manquantes doivent être remplacées par 0"
+            : "Complete un JSON structuré avec une structuration abrégée des comptes en format CSV. Des chiffres sont manquants voire érronés. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs qui restent manquantes doivent rester égales à 0.",
+        charts: "Tu dois générer une réponse structurée au format JSON contenant les informations nécessaires pour créer des graphiques et diagrammes. Assure-toi que chaque tableau ou série de données nécessitant des dimensions égales (par exemple, Abscisse et Ordonnee pour les diagrammes en bâton, ou Periodes, Valeurs_Metrique, et Variation_Percent pour les courbes) contient le même nombre déléments.",
     }[promptType];
 
     if (!systemPrompt) {
-        throw new Error("Invalid prompt type. Use 'info', 'data', or 'charts'.");
+        throw new Error("Invalid prompt type. Use info, data, or charts.");
     }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -43,16 +36,10 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
     return responseData.choices?.[0]?.message?.content || "{}";
 }
 
-/**
- * Processes combined text and tabular data with OpenAI API and returns structured insights.
- * @param {string} combinedData - Combined text data for analysis.
- * @param {string} layoutData - Tabular data in CSV format.
- * @returns {Promise<Object>} Merged JSON response from the OpenAI API.
- */
 async function generateCaseSummary(combinedData, layoutData) {
-    const firmDataSchema = {}; // Replace with your firm data schema
-    const firmInfoSchema = {}; // Replace with your firm info schema
-    const firmChartsSchema = {}; // Replace with your firm charts schema
+    const firmDataSchema = Config.firmData; // Replace with your firm data schema
+    const firmInfoSchema = Config.firmInfo; // Replace with your firm info schema
+    const firmChartsSchema = Config.firmCharts; // Replace with your firm charts schema
 
     // Generate data JSON
     const dataJSON = await callAPI(layoutData, firmDataSchema, "data");

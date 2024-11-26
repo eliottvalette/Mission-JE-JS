@@ -1,5 +1,6 @@
 import html2pdf from "html2pdf.js";
-import PropTypes from "prop-types";
+import Handlebars from "handlebars";
+import Config from "./config"; // Ensure this path is correct
 import { preparePandasData } from "./Fa_csv_builder";
 import { generateAllCharts, renderHtmlWithCharts } from "./Fb_charts_builder";
 
@@ -9,65 +10,34 @@ import { generateAllCharts, renderHtmlWithCharts } from "./Fb_charts_builder";
  * @param {string} pdfOutputName - Name for the generated PDF file.
  */
 async function generatePdfReport(data, pdfOutputName = "output.pdf") {
-    // Ensure `data` is an object
-    if (typeof data !== "object" || data === null) {
-        throw new Error("Data provided to generatePdfReport must be a non-null object.");
-    }
-
-    // Prepare data for CSV and charts
+    // Prepare CSV and table data for the report
     const { htmlDfInDict, dfsInDict } = preparePandasData(data);
 
-    // Generate charts data
+    // Generate chart data
     const chartsData = generateAllCharts(data);
 
-    // Render the main HTML template
-    const renderedHtml = `
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="UTF-8">
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-            <style>
-                /* Include your custom CSS here */
-                body { font-family: 'Roboto', Arial, sans-serif; color: #333; }
-                .section { margin: 20px 0; }
-                .csv-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                .csv-table th, .csv-table td { border: 1px solid #ddd; padding: 8px; }
-                .csv-table th { background-color: #f2f2f2; text-align: center; }
-            </style>
-        </head>
-        <body>
-            <h1>Bilan Économique & Social</h1>
-            <div class="section">
-                <h2>1. Informations Générales</h2>
-                <p>${data.info || "Pas d'informations disponibles."}</p>
-            </div>
-            <div class="section">
-                <h2>2. Données Tabulaires</h2>
-                ${htmlDfInDict}
-            </div>
-            <div class="section">
-                <h2>3. Visualisations</h2>
-                ${renderHtmlWithCharts(chartsData)}
-            </div>
-        </body>
-        </html>
-    `;
+    // Combine chart HTML
+    const chartsHtml = renderHtmlWithCharts(chartsData);
 
-    // Convert HTML to PDF
+    // Compile the main template with Handlebars
+    const template = Handlebars.compile(Config.htmlTemplate);
+
+    // Render the HTML with dynamic data
+    const renderedHtml = template({
+        ...data,
+        tableHtml: htmlDfInDict,
+        chartsHtml: chartsHtml,
+    });
+
+    // Configure options for PDF generation
     const options = {
         filename: pdfOutputName,
         html2canvas: {},
         jsPDF: { format: "a4" },
     };
 
+    // Generate and save the PDF
     await html2pdf().set(options).from(renderedHtml).save();
 }
-
-// PropTypes definitions
-generatePdfReport.propTypes = {
-    data: PropTypes.object.isRequired,
-    pdfOutputName: PropTypes.string,
-};
 
 export { generatePdfReport };

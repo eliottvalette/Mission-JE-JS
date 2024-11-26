@@ -11,12 +11,47 @@ async function perplexityFirstGlance(companyName) {
             {
                 role: "system",
                 content: `
-                Tu es un assistant dédié à la recherche d'informations précises sur des entreprises...
+                Tu es un assistant dédié à la recherche d'informations précises sur des entreprises. Tu dois analyser les données publiques disponibles (sites web, bases de données d'entreprise, articles, etc.) et donner une réponse complète et organisée au format suivant :
+                    Entreprises:
+                    - Nom :
+                    - Téléphone :
+                    - Code APE :
+                    - Code SIREN :
+                    - Registre du Commerce :
+                    - Dénomination Sociale :
+                    - Sigle ou Enseigne :
+                    - Adresse Siège Social :
+                    - Objet Social :
+                    - Forme Juridique & Capital Social :
+                    - Commencement d’Exploitation :
+                    - Exploitation du Fonds :
+
+                    Dirigeant :
+                    - Nom :
+                    - Prénom :
+                    - Nationalité :
+                    - Téléphone Portable :
+                    - Email :
+
+                    Groupe :
+                    - Appartenance :
+                    - Structures Affiliées :
+                    - Historique des Acquisitions (Date, Montant, Description) :
+
+                    Capital :
+                    - Augmentations de Capital (Date, Montant, Description) :
+
+                    Autres Informations :
+                    - Labels et Certifications :
+                    - Marques :
+                    - Partenariats Stratégiques :
+
+                    Assure-toi que les informations proviennent de sources fiables et vérifiables. Indique si des données sont indisponibles.
                 `,
             },
             {
                 role: "user",
-                content: `Trouve les informations détaillées pour l'entreprise ${companyName}.`,
+                content: `Trouve les informations détaillées pour l'entreprise ${companyName}. Assure-toi d'inclure les détails sur le secteur d'activité et les données financières si elles sont disponibles.`,
             },
         ],
     };

@@ -1,59 +1,57 @@
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { docIntelMain } from "./A_doc_intelligence";
+import { transformJsonToCsv } from "./B_reshaper";
+import { perplexityFirstGlance } from "./C_perplexity_ai";
+import { gatherData } from "./D_gather_data";
+import { generateCaseSummary } from "./E_open_ai";
+import { generatePdfReport } from "./F_pdf_creator";
 
+/**
+ * Main pipeline function to process the file and generate a structured report.
+ * @param {File} file - PDF file to process.
+ * @param {string} companyName - Name of the company.
+ * @param {function} updateStatus - Callback to update status messages.
+ * @param {function} updateProgress - Callback to update progress.
+ */
 async function main(file, companyName, updateStatus, updateProgress) {
     try {
-        // Initialize progress
-        updateProgress(0);
+        // Update progress
         updateStatus("Starting PDF analysis...");
+        updateProgress(0);
 
-        // Simulate PDF analysis
+        // Step 1: Analyze PDF with Azure (doc_intelligence equivalent)
         updateStatus("Analyzing PDF...");
-        updateProgress(10);
-        await sleep(2000); // Simulate async operation
-        const readContent = ["Sample text from PDF"];
-        const layoutTables = [{ rows: 5, columns: 3, data: [["A", "B", "C"]] }];
+        const { readContent, layoutTables } = await docIntelMain(file);
+        updateProgress(20);
 
-        // Simulate transforming layout data to CSV
-        updateStatus("Extracting tables...");
-        updateProgress(30);
-        await sleep(1500); // Simulate async operation
-        const layoutDataCsv = "Date,Value\n2023-01-01,100\n2023-01-02,200";
+        // Step 2: Transform layout data to CSV
+        updateStatus("Transforming tables into CSV...");
+        const layoutDataCsv = transformJsonToCsv(layoutTables);
+        updateProgress(40);
 
-        // Simulate fetching initial company data
+        // Step 3: Fetch initial company data with Perplexity API
         updateStatus("Fetching company details...");
-        updateProgress(50);
-        await sleep(2000); // Simulate async operation
-        const firstGlanceData = "Company Name: Sample Company\nCEO: John Doe";
+        const firstGlanceData = await perplexityFirstGlance(companyName);
+        updateProgress(60);
 
-        // Simulate gathering all data
+        // Step 4: Gather and prepare data
         updateStatus("Preparing data for analysis...");
-        updateProgress(70);
-        await sleep(1500); // Simulate async operation
-        const combinedData = `${firstGlanceData}\n\nRead Content:\n${readContent.join(
-            "\n"
-        )}\n\nLayout Data:\n${layoutDataCsv}`;
+        const combinedData = gatherData(firstGlanceData, readContent, layoutDataCsv);
+        updateProgress(80);
 
-        // Simulate generating structured data and summary
-        updateStatus("Generating case summary...");
+        // Step 5: Generate structured data and summary using OpenAI
+        updateStatus("Generating structured summary...");
+        const structuredData = await generateCaseSummary(combinedData, layoutDataCsv);
         updateProgress(90);
-        await sleep(2000); // Simulate async operation
-        const structuredData = {
-            summary: "This is a dummy summary of the data.",
-            keyFigures: { revenue: 500000, profit: 120000 },
-        };
 
-        // Simulate creating the PDF report
-        updateStatus("Generating PDF report...");
+        // Step 6: Generate PDF report
+        updateStatus("Creating PDF report...");
+        await generatePdfReport(structuredData, `${companyName}_Report.pdf`);
         updateProgress(100);
-        await sleep(2000); // Simulate async operation
-        console.log("PDF report generated for:", companyName);
 
-        updateStatus("Processing complete!");
+        updateStatus("Process completed successfully!");
     } catch (error) {
         updateStatus("An error occurred during processing.");
-        console.error("Error in processing:", error);
+        console.error("Error in processing pipeline:", error);
     }
 }
 
