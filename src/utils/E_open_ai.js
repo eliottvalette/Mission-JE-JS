@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Config from './config/config';
 
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY_JE;
+const OPENAI_API_KEY = import.meta.env.VITE_REACT_OPEN_AI_KEY_JE;
 
 async function callAPI(userData, schema, promptType, secondPass = false) {
     const systemPrompt = {
@@ -19,11 +19,11 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
+            Authorization: `${OPENAI_API_KEY}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            model: "gpt-4",
+            model: "gpt-4o",
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userData },
@@ -37,9 +37,9 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
 }
 
 async function generateCaseSummary(combinedData, layoutData) {
-    const firmDataSchema = Config.firmData; // Replace with your firm data schema
-    const firmInfoSchema = Config.firmInfo; // Replace with your firm info schema
-    const firmChartsSchema = Config.firmCharts; // Replace with your firm charts schema
+    const firmDataSchema = Config.firmData;
+    const firmInfoSchema = Config.firmInfo;
+    const firmChartsSchema = Config.firmCharts;
 
     // Generate data JSON
     const dataJSON = await callAPI(layoutData, firmDataSchema, "data");
