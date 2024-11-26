@@ -1,0 +1,179 @@
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #161616, #1c1c1c);
+    overflow: hidden;
+}
+
+/* Container Styling with Rotating Glow */
+.container {
+    text-align: center;
+    background: #2a2a2a;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* Header Styling */
+h1 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+form {
+    display : flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.companyname-input {
+    display : flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Hide default file input */
+input[type="file"] {
+    display: none;
+}
+
+/* Custom File Upload Button Styling */
+.file-upload-button {
+    padding: 0.8rem 2rem;
+    background: linear-gradient(45deg, #4a90e2, #4ac1e2);
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.6), 0 0 30px rgba(74, 193, 226, 0.3);
+    margin: 1rem 0;
+}
+
+/* File Upload Button Hover and Active Effects */
+.file-upload-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.7), 0 0 10px rgba(74, 193, 226, 0.5);
+}
+
+.file-upload-button:active {
+    transform: translateY(0);
+}
+
+/* Text Input Styling */
+input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: rgba(34, 34, 34, 0.7);
+    color: #ffffff;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus Effect for Text Input */
+input[type="text"]:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    background: rgba(34, 34, 34, 0.9);
+}
+
+/* Placeholder Text Styling */
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* Submit Button Styling */
+.submit-button {
+    padding: 0.8rem 2rem;
+    background: linear-gradient(45deg, #1d1dea, #5e59e1);
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 15px #1d1dea95, 0 0 30px #5e59e196;
+}
+
+/* Submit Button Hover and Active Effects */
+.submit-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px #1d1dea56, 0 0 40px #5e59e166;
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+/* Spinner Styling */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid #a64aff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.8s linear infinite;
+    margin: 1rem auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Loading Section Styling */
+#loading {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Status Message Styling */
+#statusMessage {
+    color: #bdbdbd;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Progress Bar Container Styling */
+.progress-bar-container {
+    width: 100%;
+    background-color: rgba(128, 0, 128, 0.2); /* Transparent purple */
+    border-radius: 10px;
+    overflow: hidden;
+    height: 12px;
+    margin-top: 1rem;
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0.4), 0 0 30px rgba(128, 0, 128, 0.2);
+    border: 1px solid rgba(144, 0, 255, 1);
+}
+
+/* Neon Progress Bar Styling */
+.progress-bar {
+    height: 100%;
+    width: 0%; /* Initial width */
+    background: linear-gradient(90deg, rgba(144, 0, 255, 0.8), rgba(255, 0, 255, 0.8));
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 30px rgba(144, 0, 255, 0.5);
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+}
