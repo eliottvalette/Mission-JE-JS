@@ -2,6 +2,7 @@ import html2pdf from "html2pdf.js";
 import Handlebars from "handlebars";
 import Config from "./config/config";
 import preparePandasData from "./Fa_csv_builder";
+import { generateAllCharts } from "./Fb_charts_builder";
 
 async function generatePdfReport(data, pdfOutputName = "output.pdf") {
     // Process data into tables
@@ -13,7 +14,7 @@ async function generatePdfReport(data, pdfOutputName = "output.pdf") {
         tableHtml: htmlDfInDict,
     });
 
-    console.log("Rendered HTML:", renderedHtml);
+    console.log("dfsInDict:", dfsInDict);
 
 
     // PDF options
@@ -33,10 +34,20 @@ async function generatePdfReport(data, pdfOutputName = "output.pdf") {
     const pdfBlob = await html2pdf().set(options).from(renderedHtml).output("blob");
     const blobUrl = URL.createObjectURL(pdfBlob);
 
-    const csvLinks = Object.entries(dfsInDict).map(([fileName, csvContent]) => {
+    // Generate CSV download links
+    const csvLinks = Object.entries(dfsInDict).map(([key, records]) => {
+        // Convert records (array of objects) to CSV string
+        const csvContent = [
+            Object.keys(records[0]).join(","), // Header row
+            ...records.map((row) => Object.values(row).join(",")), // Data rows
+        ].join("\n");
+
+        // Create Blob for CSV
         const csvBlob = new Blob([csvContent], { type: "text/csv" });
         const csvBlobUrl = URL.createObjectURL(csvBlob);
-        return { name: `${fileName}.csv`, url: csvBlobUrl };
+
+        // Return CSV link details
+        return { name: `${key}.csv`, url: csvBlobUrl };
     });
 
     // Return links

@@ -8,7 +8,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [statusMessage, setStatusMessage] = useState("Préparation de l'envoi...");
   const [loading, setLoading] = useState(false);
-  const [downloadLink, setDownloadLink] = useState(null);
+  const [downloadLinks, setDownloadLinks] = useState(null);
 
   const handleFileSubmit = async (file, companyName) => {
     setLoading(true);
@@ -17,10 +17,10 @@ const App = () => {
 
     try {
       // Call the pipeline function with update callbacks
-      const linkHtml = await main(file, companyName, setStatusMessage, setProgress);
+      const linksHtml = await main(file, companyName, setStatusMessage, setProgress);
 
-      if (linkHtml) {
-          setDownloadLink(linkHtml); // Set the link HTML
+      if (linksHtml) {
+          setDownloadLinks(linksHtml); // Set the link HTML
       } else {
           setStatusMessage("Une erreur s'est produite.");
       }
@@ -46,11 +46,29 @@ const App = () => {
         <FileUpload onSubmit={handleFileSubmit} />
         {loading && <ProgressBar progress={progress} statusMessage={statusMessage} />}
       </div>
-      {downloadLink && (
-                  <div
+      {downloadLinks && (
+                  <div className="download-link-container">
+                    {/* Render PDF Download Link */}
+                    <a
+                      href={downloadLinks.pdf.url}
                       className="download-link"
-                      dangerouslySetInnerHTML={{ __html: downloadLink }}
-                  />
+                      download={downloadLinks.pdf.name}
+                    >
+                      Télécharger le rapport : {downloadLinks.pdf.name}
+                    </a>
+                
+                    {/* Render CSV Download Links */}
+                    {downloadLinks.csvs.map((csv, index) => (
+                      <a
+                        key={index}
+                        href={csv.url}
+                        className="download-link"
+                        download={csv.name}
+                      >
+                        Télécharger le CSV : {csv.name}
+                      </a>
+                    ))}
+                </div>
               )
       }
     </>

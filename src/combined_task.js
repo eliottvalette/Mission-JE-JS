@@ -151,11 +151,11 @@ async function main(file, companyName, updateStatus, updateProgress) {
 
         // Step 6: Generate PDF report
         updateStatus("Creating PDF report...");
-        const downloadLink = await generatePdfReport(structuredData, `${companyName}_Report.pdf`);
+        const downloadLinks = await generatePdfReport(structuredData, `${companyName}_Report.pdf`);
         updateStatus("Process completed successfully!");
         updateProgress(100);
 
-        return downloadLink;
+        return downloadLinks;
     } catch (error) {
         updateStatus("An error occurred during processing.");
         console.error("Error in processing pipeline:", error);

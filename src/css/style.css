@@ -179,8 +179,12 @@ input[type="text"]::placeholder {
 }
 
 /* DOwnload Links */
-.download-link {
+.download-link-container {
     text-align: center;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
     background: #2a2a2a;
     margin-top: 1.5rem;
     padding: 2rem;
@@ -189,10 +193,10 @@ input[type="text"]::placeholder {
     max-width: 500px;
 }
 
-.download-link a {
+.download-link {
     color : white;
 }
 
-.download-link a:hover {
+.download-link:hover {
     color : rgb(196, 196, 196);
 }
