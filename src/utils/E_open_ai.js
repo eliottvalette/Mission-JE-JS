@@ -19,20 +19,24 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
-            Authorization: `${OPENAI_API_KEY}`,
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            model: "gpt-4o",
+            model: "gpt-4o-2024-08-06", // Ensure compatible model
             messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: userData },
+                { role: "system", content: "Provide structured data following the schema." },
+                { role: "user", content: "Extract company financial information." },
             ],
-            functions: [{ name: "json_schema", parameters: schema }],
+            response_format: {
+                type: "json_schema",
+                json_schema: schema,
+            },
         }),
     });
-
+    
     const responseData = await response.json();
+    console.log(responseData);
     return responseData.choices?.[0]?.message?.content || "{}";
 }
 

@@ -1,109 +1,219 @@
 const Config = {
     htmlTemplate: `
-      <!DOCTYPE html>
+        <!DOCTYPE html>
         <html lang="fr">
         <head>
             <meta charset="UTF-8">
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
             <style>
-                body { font-family: 'Roboto', Arial, sans-serif; color: #333; }
-                .first-page-block { background-color: #f2f2f2; border: 4px solid #ccc; padding: 10%; text-align: center; }
-                .page-header { background-color: #ffffff; border: 2px solid #2e6c80; text-align: center; margin-bottom: 8%; }
-                h1 { color: #2e6c80; text-align: center; }
-                h2 { color: #2e6c80; border-bottom: 2px solid #2e6c80; }
-                h3 { color: #2e6c80; }
-                .section { margin: 20px 0; }
-                .data-field { font-weight: bold; color: #555; }
-                .value { color: #000; }
-                .csv-table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed; font-size: 14px; color: #333; background-color: #fff; }
-                .csv-table th, .csv-table td { border: 1px solid #ddd; padding: 8px; text-align: center; vertical-align: top; word-wrap: break-word; text-overflow: ellipsis; white-space: normal; max-width: 150px; }
-                .csv-table th { background-color: #2e6c80; color: #fff; font-weight: bold; }
-                .page-break { page-break-before: always; }
+            body { padding: 5%; font-family: 'Roboto', Arial, sans-serif; color: #333; }
+            .first-page-block { background-color: #f2f2f2; border: 4px solid #ccc; padding: 10%; text-align: center; }
+            .page-header { background-color: #ffffff; border: 2px solid #2e6c80; text-align: center; margin-bottom: 8%; }
+            h1 { color: #2e6c80; text-align: center; }
+            h2 { color: #2e6c80; border-bottom: 2px solid #2e6c80; }
+            h3 { color: #2e6c80}
+            .section { margin: 20px 0; }
+            .data-field { font-weight: bold; color: #555; }
+            .value { color: #000; }
+            .section-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            .section-table th, .section-table td { border: 1px solid #ddd; padding: 8px; }
+            .section-table th { background-color: #f2f2f2; color: #333; }
+
+            /* Styling for the CSV table */
+            .csv-table {
+                width: 100%;
+                border-collapse: collapse; 
+                margin-top: 20px;
+                table-layout: fixed;
+                font-size: 14px;
+                color: #333;
+                background-color: #fff;
+            }
+
+            /* Header styling (first row) */
+            .csv-table tr:first-child th{
+                background-color: #2e6c80 !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-align: center;
+                padding: 10px; /* Padding for a better appearance */
+                border: 1px solid #ddd; /* Light border for separation */
+            }
+
+            /* Regular cell styling */
+            .csv-table td, .csv-table th {
+                border: 1px solid #ddd; 
+                padding: 8px; 
+                text-align: center; 
+                vertical-align: top; 
+                word-wrap: break-word;
+                text-overflow: ellipsis;
+                white-space: normal; 
+                max-width: 150px;
+            }
+
+            /* Helping categories */
+            .csv-table tr.helping-category th,
+            .csv-table tr.helping-category td {
+                background-color: #e7f0ff; /* Light blue background for helping rows */
+                color: #2e6c80; /* Blue text */
+                font-weight: bold; /* Bold text */
+            }
+
+
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .csv-table td {
+                    font-size: 12px; /* Smaller font size for mobile */
+                    padding: 5px; /* Reduce padding for small screens */
+                }
+
+                .csv-table th {
+                    font-size: 13px; /* Smaller font size for headers */
+                    padding: 8px;
+                }
+            }
+
+            
+            /* Page break properties */
+            .page-break { page-break-before: always; }
+
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            @page {
+                @top-center {
+                    content: "Bilan Économique & Social";
+                    color: #2e6c80;
+                    font-size: 14px;
+                    font-family: 'Roboto', Arial, sans-serif;
+                }
+                @bottom-right {
+                    content: "Page " counter(page);
+                    color: #777;
+                    font-size: 12px;
+                }
+            }
+            .page-wrapper {
+                padding: 2cm;
+                margin: 0;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                background: white;
+            }
             </style>
         </head>
         <body>
+            <div class="page-wrapper">
 
-        <div class="section">
-            <div class="first-page-block">
-                <h1>BILAN ÉCONOMIQUE & SOCIAL</h1>
+                <div class="section">
+                    <div class="first-page-block">
+                        <h1>BILAN ÉCONOMIQUE & SOCIAL</h1>
+                    </div>
+                </div>
+                <h2>1. Entreprise</h2>
+                    <p><span class="data-field">Nom:</span> <span class="value">{{ Entreprise.Nom }}</span></p>
+                    <p><span class="data-field">Code APE:</span> <span class="value">{{ Entreprise.Code_APE }}</span></p>
+                    <p><span class="data-field">Code SIREN:</span> <span class="value">{{ Entreprise.Code_SIREN }}</span></p>
+                    <p><span class="data-field">Registre du Commerce:</span> <span class="value">{{ Entreprise.Registre_du_Commerce }}</span></p>
+                    <p><span class="data-field">Dénomination sociale:</span> <span class="value">{{ Entreprise.Dénomination_Sociale }}</span></p>
+                    <p><span class="data-field">Adresse du Siège Social:</span> <span class="value">{{ Entreprise.Adresse_Siege_Social }}</span></p>
+                    <p><span class="data-field">Forme Juridique et Capital Social:</span> <span class="value">{{ Entreprise.Forme_Juridique_Capital_Social }}</span></p>
+                    <p><span class="data-field">Commencement Exploitation:</span> <span class="value">{{ Entreprise.Commencement_Exploitation }}</span></p>
+                    <p><span class="data-field">Exploitation du Fonds:</span> <span class="value">{{ Entreprise.Exploitation_du_Fonds }}</span></p>
+                
+                <h2>2. Dirigeant</h2>
+                    <p><span class="data-field">Nom:</span> <span class="value">{{ Dirigeant.Nom }}</span></p>
+                    <p><span class="data-field">Prénom:</span> <span class="value">{{ Dirigeant.Prenom }}</span></p>
+                    <p><span class="data-field">Nationalité:</span> <span class="value">{{ Dirigeant.Nationalité }}</span></p>
+                    <p><span class="data-field">Téléphone:</span> <span class="value">{{ Dirigeant.Telephone_Portable }}</span></p>
+                    <p><span class="data-field">Email:</span> <span class="value">{{ Dirigeant.Email }}</span></p>
+
+                <div class="section page-break">
+                    <h2>3. Informations sur le Groupe</h2>
+                        <h3>Structure du Groupe</h3>
+                        <p><span class="data-field">Appartenance:</span> <span class="value">{{Group_Info.Structure_du_Groupe}}</span></p>
+                        <p><span class="data-field">Affiliations:</span> <span class="value">{{Group_Info.Structure_Affiliees}}</span></p>
+
+                        <h3>Historique des Acquisitions</h3>
+                        <table class="csv-table">
+                            <tr>
+                                <th>Date</th>
+                                <th>Montant</th>
+                                <th>Description</th>
+                            </tr>
+                            {{#each Group_Info.Historique_Acquisitions}}
+                            <tr>
+                                <td>{{Date}}</td>
+                                <td>{{Montant}}</td>
+                                <td>{{Description}}</td>
+                            </tr>
+                            {{/each}}
+                        </table>
+
+                        <h3>Augmentations de Capital</h3>
+                        <table class="csv-table">
+                            <tr>
+                                <th>Date</th>
+                                <th>Montant</th>
+                                <th>Description</th>
+                            </tr>
+                            {{#each Group_Info.Capital_Increase}}
+                                <tr>
+                                    <td>{{Date}}</td>
+                                    <td>{{Montant}}</td>
+                                    <td>{{Description}}</td>
+                                </tr>
+                            {{/each}}
+                        </table>
+
+                        <h3>Autres Informations</h3>
+                        <p><span class="data-field">Labels et Certifications:</span> <span class="value">{{ Group_Info.Autres_Informations.Labels}}</span></p>
+                        <p><span class="data-field">Partenariats Stratégiques:</span> <span class="value">{{ Group_Info.Autres_Informations.Partenariats}}</span></p>
+                    </div>
+
+                <div class="section page-break">
+                    <h2>4. Analyse Financière</h2>
+                    <h2>4. Analyse Financière</h2>
+                    <p><span class="data-field">Vue d'ensemble:</span> <span class="value">{{ Analyse_Financiere.Vue_d_ensemble }}</span></p>
+                    
+                    <h3>Actifs</h3>
+                    <p><span class="data-field">Actifs Immobilisés:</span> <span class="value">{{ Analyse_Financiere.Actifs.Actifs_Immobilises }}</span></p>
+                    <p><span class="data-field">Actifs Circulants:</span> <span class="value">{{ Analyse_Financiere.Actifs.Actifs_Circulants }}</span></p>
+
+                    <h3>Passifs</h3>
+                    <p><span class="data-field">Capitaux Propres:</span> <span class="value">{{ Analyse_Financiere.Passifs.Capitaux_Propres }}</span></p>
+                    <p><span class="data-field">Dettes Financières:</span> <span class="value">{{ Analyse_Financiere.Passifs.Dettes_Financieres }}</span></p>
+                    <p><span class="data-field">Dettes d'Exploitation:</span> <span class="value">{{ Analyse_Financiere.Passifs.Dettes_d_Exploitation }}</span></p>
+
+                    <h3>Résultats Financiers</h3>
+                    <p><span class="data-field">Résultat d'exploitation:</span> <span class="value">{{ Analyse_Financiere.Resultats_Financiers.Resultat_Exploitation }}</span></p>
+                    <p><span class="data-field">Résultat Net:</span> <span class="value">{{ Analyse_Financiere.Resultats_Financiers.Resultat_Net }}</span></p>
+                    <p><span class="data-field">Ratios Financiers:</span> <span class="value">{{ Analyse_Financiere.Resultats_Financiers.Ratios_Financiers }}</span></p>
+
+                    <h3>Perspectives</h3>
+                    <p><span class="data-field">Perspectives:</span> <span class="value">{{ Analyse_Financiere.Perspectives }}</span></p>
+                </div>
+
+                <div class="section page-break">
+                    <h2>Tableau des Données Importées</h2>
+                    <h3>Bilan Actif</h3>
+                        {{{tableHtml.Bilan_actif}}}
+                    <h3>Bilan Passif</h3>
+                        {{{tableHtml.Bilan_passif}}}
+                    <h3>Compte de résultat</h3>
+                        {{{tableHtml.Compte_de_resultat}}}
+                </div>
+
+                <div class="page-break">
+                <h2>Visualisation des Données</h2>
+                    {{{chartsHtml}}}
+                </div>
             </div>
-        </div>
-
-        <div class="section page-break">
-            <div class="page-header"><h1>Volet Juridique</h1></div>
-            <h2>1. Entreprise</h2>
-            <p><span class="data-field">Nom:</span> <span class="value">{{Entreprise.Nom}}</span></p>
-            <p><span class="data-field">Code APE:</span> <span class="value">{{Entreprise.Code_APE}}</span></p>
-            <p><span class="data-field">Code SIREN:</span> <span class="value">{{Entreprise.Code_SIREN}}</span></p>
-            <p><span class="data-field">Registre du Commerce:</span> <span class="value">{{Entreprise.Registre_du_Commerce}}</span></p>
-
-            <h2>2. Dirigeant</h2>
-            <p><span class="data-field">Nom:</span> <span class="value">{{Dirigeant.Nom}}</span></p>
-            <p><span class="data-field">Prénom:</span> <span class="value">{{Dirigeant.Prenom}}</span></p>
-            <p><span class="data-field">Nationalité:</span> <span class="value">{{Dirigeant.Nationalité}}</span></p>
-        </div>
-
-        <div class="section page-break">
-            <h2>3. Informations sur le Groupe</h2>
-            <h3>Structure du Groupe</h3>
-            <p><span class="data-field">Appartenance:</span> <span class="value">{{Group_Info.Structure_du_Groupe}}</span></p>
-            <p><span class="data-field">Affiliations:</span> <span class="value">{{Group_Info.Structure_Affiliees}}</span></p>
-
-            <h3>Historique des Acquisitions</h3>
-            <table class="csv-table">
-                <tr>
-                    <th>Date</th>
-                    <th>Montant</th>
-                    <th>Description</th>
-                </tr>
-                {{#each Group_Info.Historique_Acquisitions}}
-                <tr>
-                    <td>{{Date}}</td>
-                    <td>{{Montant}}</td>
-                    <td>{{Description}}</td>
-                </tr>
-                {{/each}}
-            </table>
-        </div>
-
-        <div class="section page-break">
-            <h2>4. Analyse Financière</h2>
-            <h3>Actifs</h3>
-            <p><span class="data-field">Actifs Immobilisés:</span> <span class="value">{{Analyse_Financiere.Actifs.Actifs_Immobilises}}</span></p>
-            <p><span class="data-field">Actifs Circulants:</span> <span class="value">{{Analyse_Financiere.Actifs.Actifs_Circulants}}</span></p>
-
-            <h3>Passifs</h3>
-            <p><span class="data-field">Capitaux Propres:</span> <span class="value">{{Analyse_Financiere.Passifs.Capitaux_Propres}}</span></p>
-        </div>
-
-        <div class="section page-break">
-            <h2>Tableau des Données Importées</h2>
-            <div>
-                {{Donnee_Tabulaire.Bilan_actif}}
-            </div>
-            <div>
-                {{Donnee_Tabulaire.Bilan_passif}}
-            </div>
-            <div>
-                {{Donnee_Tabulaire.Compte_de_resultat}}
-            </div>
-        </div>
-
         </body>
         </html>
-    `,
-
-
-    chartsTemplate: `
-      <div class="section page-break">
-        <h2>Visualisation des Données</h2>
-        {{#each charts}}
-        <div class="chart-section">
-            <h3>{{name}}</h3>
-            <img src="{{data}}" alt="{{name}}" style="width: 100%; max-width: 600px;"/>
-        </div>
-        {{/each}}
-    </div>
     `,
 
 

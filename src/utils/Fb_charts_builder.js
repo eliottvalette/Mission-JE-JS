@@ -1,57 +1,80 @@
-import PropTypes from "prop-types";
 import Chart from "chart.js/auto";
 
-/**
- * Generates all charts as Base64 images.
- * @param {Object} data - Input data for charts.
- * @returns {Object} Object containing Base64 images for charts.
- */
 function generateAllCharts(data) {
     const charts = {};
 
-    // Example: Generate a bar chart
-    if (data.barChart) {
+    if (data.Diagramme_Baton) {
         const canvas = document.createElement("canvas");
-        new Chart(canvas, {
+        const ctx = canvas.getContext("2d");
+
+        // Render bar chart
+        new Chart(ctx, {
             type: "bar",
             data: {
-                labels: data.barChart.labels,
-                datasets: [{ data: data.barChart.values, label: "Example Bar Chart" }],
+                labels: data.Diagramme_Baton.Abscisse,
+                datasets: [
+                    {
+                        label: "Moyenne",
+                        data: data.Diagramme_Baton.Ordonnee,
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
             },
         });
 
-        charts["Bar Chart"] = canvas.toDataURL("image/png");
+        // Ensure chart is rendered before extracting Base64 data
+        charts["Diagramme Baton"] = canvas.toDataURL("image/png");
+        console.log("Bar chart generated successfully");
     }
 
-    // Add other chart types (pie, line, etc.) similarly
+    if (data.Diagramme_Circulaire) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Render pie chart
+        new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: data.Diagramme_Circulaire.Categories,
+                datasets: [
+                    {
+                        label: "Diagramme Circulaire",
+                        data: data.Diagramme_Circulaire.Valeurs,
+                        backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                        ],
+                        borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                        ],
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            },
+        });
+
+        // Ensure chart is rendered before extracting Base64 data
+        charts["Diagramme Circulaire"] = canvas.toDataURL("image/png");
+        console.log("Pie chart generated successfully");
+    }
+
     return charts;
 }
 
-/**
- * Renders HTML content for charts.
- * @param {Object} charts - Object containing Base64 images for charts.
- * @returns {string} HTML string embedding all charts.
- */
-function renderHtmlWithCharts(charts) {
-    return Object.entries(charts)
-        .map(
-            ([chartName, chartImg]) => `
-            <div class="chart-section">
-                <h3>${chartName}</h3>
-                <img src="${chartImg}" alt="${chartName}" style="width: 100%; max-width: 600px;"/>
-            </div>
-        `
-        )
-        .join("");
-}
 
-// PropTypes definitions
-generateAllCharts.propTypes = {
-    data: PropTypes.object.isRequired,
-};
-
-renderHtmlWithCharts.propTypes = {
-    charts: PropTypes.object.isRequired,
-};
-
-export { generateAllCharts, renderHtmlWithCharts };
+export { generateAllCharts };

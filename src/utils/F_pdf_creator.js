@@ -1,39 +1,44 @@
 import html2pdf from "html2pdf.js";
 import Handlebars from "handlebars";
-import Config from "./config/config"; // Ensure this path is correct
-import { preparePandasData } from "./Fa_csv_builder";
+import Config from "./config/config";
+import preparePandasData from "./Fa_csv_builder";
 import { generateAllCharts, renderHtmlWithCharts } from "./Fb_charts_builder";
 
 async function generatePdfReport(data, pdfOutputName = "output.pdf") {
-    // Prepare CSV and table data for the report
-    const { htmlDfInDict, dfsInDict } = preparePandasData(data);
-    console.log("DFS in DICT:", dfsInDict)
+    const { htmlDfInDict } = preparePandasData(data);
 
-    // Generate chart data
     const chartsData = generateAllCharts(data);
-
-    // Combine chart HTML
     const chartsHtml = renderHtmlWithCharts(chartsData);
 
-    // Compile the main template with Handlebars
     const template = Handlebars.compile(Config.htmlTemplate);
-
-    // Render the HTML with dynamic data
     const renderedHtml = template({
         ...data,
         tableHtml: htmlDfInDict,
         chartsHtml: chartsHtml,
     });
 
-    // Configure options for PDF generation
+    for (const chart of chartsData) {
+        await chart.toBlob();
+    }
+
+    console.log("Rendered HTML:", renderedHtml);
+
     const options = {
         filename: pdfOutputName,
-        html2canvas: {},
-        jsPDF: { format: "a4" },
+        html2canvas: {
+            scale: 2,
+            logging: true,
+            useCORS: true,
+        },
+        jsPDF: {
+            unit: "cm",
+            format: "a4",
+            orientation: "portrait",
+        },
     };
 
-    // Generate and save the PDF
     await html2pdf().set(options).from(renderedHtml).save();
 }
+
 
 export { generatePdfReport };

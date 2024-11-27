@@ -20,171 +20,96 @@ function saveDebugFile(filename, data) {
     }
 }
 
-const combinedData =
-`
-Informations utiles:
-Entreprises:
-Nom : Maison Coudeyrat
-Téléphone : Non disponible
-Code APE : 1011Z  Transformation et conservation de la viande de boucherie
-Code SIREN : 311547111
-Registre du Commerce : RCS Bergerac
-Dénomination Sociale : Société à responsabilité limitée à associé unique
-Sigle ou Enseigne : Non disponible
-Adresse Siège Social : Zone Artisanale, 24260 Le Bugue, Dordogne
-Objet Social : Fabrication, transformation, conditionnement et vente de tous produits de charcuterie, abattage des porcs, revente en gros demigros et détail[2][3].
-Forme Juridique & Capital Social : Société à responsabilité limitée à associé unique, capital social de 130 000,00 €[1][3].
-Commencement d’Exploitation : 1955[4].
-Exploitation du Fonds : Actif depuis 46 ans, avec un établissement principal depuis 1989[1].
+const structuredData = {
+    "Entreprise": {
+      "Nom": "Maison Coudeyrat",
+      "Telephone": "Non disponible",
+      "Code_APE": "1011Z",
+      "Code_SIREN": "311547111",
+      "Registre_du_Commerce": "RCS Bergerac",
+      "Dénomination_Sociale": "Société à responsabilité limitée à associé unique",
+      "Sigle_Ou_Enseigne": "Non disponible",
+      "Adresse_Siege_Social": "Zone Artisanale, 24260 Le Bugue, Dordogne",
+      "Objet_Social": "Fabrication, transformation, conditionnement et vente de tous produits de charcuterie, abattage des porcs, revente en gros demigros et détail.",
+      "Forme_Juridique_Capital_Social": "Société à responsabilité limitée à associé unique, capital social de 130 000,00 €",
+      "Commencement_Exploitation": "1955",
+      "Exploitation_du_Fonds": "Actif depuis 46 ans"
+    },
+    "Dirigeant": {
+      "Nom": "Benoît David",
+      "Prenom": "Benoît",
+      "Nationalité": "Non disponible",
+      "Telephone_Portable": "Non disponible",
+      "Email": "Non disponible"
+    },
+    "Group_Info": {
+      "Structure_du_Groupe": "Indépendante",
+      "Structure_Affiliees": [],
+      "Historique_Acquisitions": [],
+      "Capital_Increase": [],
+      "Autres_Informations": {
+        "Labels": [
+          "Médaille au Concours Général Agricole de Paris pour le saucisson sec « Lou Teychou »"
+        ],
+        "Partenariats": [
+          "Maison Bousquet en Aveyron pour la viande de bœuf, de veau et d’agneau"
+        ]
+      }
+    },
+    "Analyse_Financiere": {
+      "Vue_d_ensemble": "Maison Coudeyrat, spécialisée dans la transformation et conservation de la viande, a connu une année difficile avec un résultat net négatif de -279 950 € pour l'exercice 2023. Malgré un chiffre d'affaires de 5 580 118 €, l'entreprise fait face à des défis financiers importants, notamment un plan de redressement sur 9 ans. Les perspectives de redressement dépendent de la gestion efficace des coûts et de l'amélioration des marges.",
+      "Actifs": {
+        "Actifs_Immobilises": "Les actifs immobilisés s'élèvent à 473 177 €, représentant 34,29% du total des actifs. Les installations techniques et le matériel industriel constituent une part importante, mais leur amortissement élevé (765 055 €) indique une utilisation intensive et un besoin potentiel de renouvellement.",
+        "Actifs_Circulants": "Les actifs circulants, principalement composés de créances clients (427 911 €) et de disponibilités (185 403 €), représentent 65,71% du total des actifs. La gestion des créances et des stocks est cruciale pour maintenir la liquidité."
+      },
+      "Passifs": {
+        "Capitaux_Propres": "Les capitaux propres sont faibles à 469 766 €, soit 34,04% du passif total, en raison du résultat net négatif. Cela limite la capacité de l'entreprise à financer ses opérations par ses propres moyens.",
+        "Dettes_Financieres": "Les dettes financières, incluant des emprunts de 260 443 €, représentent 18,87% du passif. Ces dettes sont utilisées pour financer les investissements, mais elles pèsent sur la trésorerie.",
+        "Dettes_d_Exploitation": "Les dettes d'exploitation, principalement envers les fournisseurs (401 692 €), représentent 29,11% du passif. Une gestion rigoureuse des échéances est nécessaire pour éviter des tensions de trésorerie."
+      },
+      "Resultats_Financiers": {
+        "Resultat_Exploitation": "Le résultat d'exploitation est négatif à -310 669 €, impacté par des charges d'exploitation élevées, notamment les achats de marchandises et les charges de personnel.",
+        "Resultat_Net": "Le résultat net de -279 950 € est aggravé par des charges exceptionnelles et un faible résultat financier. Les éléments exceptionnels ont contribué à une réduction du résultat exceptionnel de 45,29%.",
+        "Ratios_Financiers": "Les ratios financiers montrent une rentabilité en baisse avec un résultat net sur chiffre d'affaires de -5,02%. La solvabilité est également préoccupante avec des capitaux propres représentant seulement 34,04% du passif total."
+      },
+      "Perspectives": "Pour améliorer sa situation financière, Maison Coudeyrat doit se concentrer sur la réduction des coûts d'exploitation, l'optimisation de la gestion des stocks et des créances, et la recherche de nouvelles opportunités de marché pour augmenter ses revenus."
+    },
+    "Donnee_Tabulaire": {
+      "Bilan_actif": "Date,30/09/2023,30/09/2022\nLicences,14 733,28 879\nFonds de commerce,125 916,125 916\nImmobilisations incorporelles,140 649,154 795\nConstructions,111 419,123 971\nMatériel et outillage,90 930,89 760\nMobilier,104 899,164 469\nImmobilisations corporelles,307 248,378 200\nActions SEMAB,15 000,15 000\nCautions versées,10 280,10 280\nImmobilisations financières,25 280,25 280\nTotal actif immobilisé net,473 177,558 274\nStocks et en-cours,186 844,192 606\nClients,427 911,601 281\nFournisseurs,0,0\nFiscales et sociales,0,0\nFactor,0,0\nCréances,427 911,601 281\nComptes courants,0,0\nDisponibilités,185 403,298 492\nTotal actif circulant net,800 158,1 092 379\nCharges constatées d avances,66 510,102 389\nComptes de régularisation,66 510,102 389\nTOTAL ACTIF,1 339 845,1 753 042",
+      "Bilan_passif": "Date,30/09/2023,30/09/2022\nCapital social,130 000,130 000\nRéserves,498 367,576 413\nReport à nouveau,0,0\nRésultat de l exercice,-279 950,-78 047\nCapitaux propres,348 417,628 366\nSubventions,121 350,153 742\nFonds propres,121 350,153 742\nEmprunts bancaires,260 443,314 099\nDettes financières M/L terme,260 443,314 099\nAcomptes clients,0,0\nDettes fournisseurs,401 692,432 362\nRémunérations dues,97 446,125 341\nOrganismes sociaux,80 006,92 476\nImpôts et taxes,9 065,10 015\nDettes fiscales et sociales,186 517,227 832\nDettes d exploitation,588 209,660 194\nComptes courants,59 062,29 971\nDettes hors exploitation,59 062,29 971\nDécouverts,61,206\nDettes financières court terme,61,206\nTOTAL PASSIF,1 339 845,1 753 042",
+      "Compte_de_resultat": "Date,30/09/2023,30/09/2022\nChiffre d affaires,5 580 118,6 278 601\nAchats de marchandises,3 753 147,4 085 890\nSous-traitance,0,0\nTransports,26 091,25 067\nMarge brute,1 800 880,2 167 644\nCharges liées à l exploitation,621 186,582 828\nImpôts et taxes,36 470,42 142\nMasse salariale,865 001,948 381\nAutres charges liées à l activité,215 425,256 642\nMarge opérationnelle,62 798,337 651\nCharges restantes,0,0\nEBE hors groupe,62 798,337 651\nFacturation holding,0,0\nEBE,62 798,337 651\nAutres produits et charges,239,5 102\nDotations aux Amortissements et Provisions,124 799,168 256\nRésultat d exploitation,-62 240,164 293\nRésultat financier,-1 322,-1 451\nRésultat exceptionnel,30 843,56 388\nImpôt sur les Sociétés,-1 198,-1 290\nRésultat net,-279 950,-78 047\nCapacité d Autofinancement,0,0\nAcquisition actif,0,0\nAcomptes versés,0,0\nPrise participation SEMAB,0,0\nVariation compte courant,0,0\nDéblocage d emprunts,0,0\nRemboursement d emprunts,0,0\nFlux d exploitation,0,0"
+    },
+    "Diagramme_Baton": {
+      "Abscisse": ["2021", "2022", "2023"],
+      "Ordonnee": [5500000, 6278601, 5580118],
+    "Moyenne": 5786239.67,
+    "Unite": "Euros"
+  },
+  "Diagramme_Circulaire": {
+    "Categories": ["Ventes de marchandises", "Production vendue services"],
+    "Valeurs": [5557467, 22651],
+    "Total": 5580118
+  },
+  "Courbes": {
+    "Periodes": ["2019", "2020", "2021", "2022", "2023"],
+    "Libelle_Metrique": "Chiffre d'affaires",
+    "Valeurs_Metrique": [5000000, 5200000, 5500000, 6278601, 5580118],
+    "Variation_Percent": [4, 5.77, 5.77, 14.16, -11.11],
+    "Unite": "Euros"
+  },
+  "Histogramme": {
+    "Categories": ["1-10k", "10-50k", "50-100k", "100k+"],
+    "Frequence": [5, 12, 20, 8],
+    "Unite": "Comptes"
+  },
+  "Radar": {
+    "Indicateurs": ["Qualité", "Innovation", "Satisfaction client", "Croissance", "Durabilité"],
+    "Scores": [85, 70, 80, 60, 75],
+    "Echelle": "0 à 100"
+  }
+}
 
-Dirigeant :
-Nom : Benoît David
-Prénom : Benoît
-Nationalité : Non disponible
-Téléphone Portable : Non disponible
-Email : Non disponible
-
-Groupe :
-Appartenance : Indépendante
-Structures Affiliées : Aucune information disponible
-Historique des Acquisitions (Date, Montant, Description) : Aucune information disponible
-
-Capital :
-Augmentations de Capital (Date, Montant, Description) : Aucune information disponible
-
-Autres Informations :
-Labels et Certifications : Aucune information disponible
-Marques : LOU TEYCHOU DU PERIGORD et LORPIC[4].
-Partenariats Stratégiques : Maison Bousquet en Aveyron pour la diversification dans la viande de bœuf, de veau et d’agneau[4].
-
-Notes :
-Jugement de Plan de Redressement : Maison Coudeyrat a été déclarée en Jugement de plan de redressement par le Tribunal de Commerce de Bergerac, avec une durée du plan de 9 ans et un commissaire à l'exécution du plan nommé De Keating[2][3].
-Procédure Collective : La procédure de redressement judiciaire a été ouverte le 15 octobre 2023, avec un administrateur judiciaire SCP Cbf Associes et un mandataire judiciaire SELARL De Keating[2].
-
-Chiffres Clés :
-Chiffre d’Affaires : 5 580 000 € en 2023[1].
-Résultat Net : 313 300 € en 2023[1].
-Effectifs Moyens : 20 à 49 salariés[1][2].
-
-Assuretoi que les informations proviennent de sources fiables et vérifiables.
-
-Texte des 5 premières pages:
-{"page":1,"content":"hocelis\nExpertise Comptable\nCommissariat aux Comptes\nMAISON COUDEYRAT\nZone artisanale\n24260 LE BUGUE\nCOMPTES ANNUELS\nAU 30 SEPTEMBRE 2023\n(Période du 01/10/2022 au 30/09/2023)\nSociété d'Expertise comptable inscrite au tableau de l'Ordre de la Région de Bretagne - Commissaire aux\nComptes membre de la Compagnie Régionale de Rennes\nSARL Hocélis au capital de 2 000 Euros - 11 avenue des Peupliers - 35510 CESSON-SÉVIGNÉ\nSiret : 810 549 402 00024 - Tél. 09 72 60 13 51 - Port. 06 62 49 23 94 - Email : celine.hocde@hocelis.fr"},{"page":2,"content":"MAISON COUDEYRAT\nPériode du 01/10/2022 au 30/09/2023\nBILAN ACTIF\nPrésenté en Euros\nACTIF\nExercice clos le\n30/09/2023\n(12 mois)\nBrut\nAmort. & Prov\nNet\n%\nCapital souscrit non appelé\n(0)\nActif Immobilisé\nFrais d'établissement\nRecherche et développement\nConcessions, brevets, marques, logiciels et droits similaires\nFonds commercial\nAutres immobilisations incorporelles\nAvances & acomptes sur immobilisations incorporelles\n73 865\n125 916\n59 132\n14 733\n1,07\n125 916\n9,12\nTerrains\nConstructions\nInstallations techniques, matériel & outillage industriels\nAutres immobilisations corporelles\nImmobilisations en cours\nAvances & acomptes\n151 684\n855 985\n413 691\n40 265\n765 055\n90 930\n308 792\n104 899\n111 419\n8,07\n6,59\n7,60\nParticipations évaluées selon mise en équivalence\nAutres Participations\nCréances rattachées à des participations\nAutres titres immobilisés\nPrêts\nAutres immobilisations financières\n15 000\n15 000\nExercice précédent\n30/09/2022\n(12 mois)\nNet\n%\n28 879\n1,61\n125 916\n7,02\n123 971\n6,91\n89 760\n5,00\n164 469\n9,17\n1,09\n15 000\n0,84\n10 280\n10 280\n0,74\n10 280\n0,57\nTOTAL (I)\n1 646 420\n1 173 243\n473 177\n34,29\nActif circulant\nMatières premières, approvisionnements\nEn cours de production de biens\nEn cours de production de services\nProduits intermédiaires et finis\nMarchandises\n191 844\n5 000\n186 844\n13,54\nAvances & acomptes versés sur commandes\nClients et comptes rattachés\nAutres créances\n496 437\n68 526\n427 911\n31,01\n. Fournisseurs débiteurs\n. Personnel\n. Organismes sociaux\n. Etat, impôts sur les bénéfices\n. Etat, taxes sur le chiffre d'affaires\n. Autres\nCapital souscrit et appelé, non versé\n11 668\n3 849\n11 668\n3 849\n558 274\n31,12\n192 606\n10,74\n601 281\n33,51\n0,85\n782\n0,04\n0,28\n1 906\n0,11\n19 834\n4 718\n19 834\n4 718\n1,44\n27 688\n0,34\n10 700\nValeurs mobilières de placement\nInstruments financiers à terme et jetons détenus\nDisponibilités\nCharges constatées d'avance\nTOTAL (II)\n185 403\n66 510\n980 262\n73 526\n185 403\n66 510\n13,44\n4,82\n906 736\n65,71\nCharges à répartir sur plusieurs exercices\nPrimes de remboursement des obligations\nEcarts de conversion et différences d'évaluation actif\nV)\n(III)\nV)\nTOTAL ACTIF (0 à V)\n2 626 683\n1 246 770\n1 379 913 100,00\n1,54\n0,60\n298 492\n16,64\n102 389\n5,71\n1 235 843\n68,88\n1 794 116 100,00\n2"}]
-
-Données tabulaires:
-Table 1
-ACTIF,Exercice clos le 30/09/2023,Exercice précédent 30/09/2022
-,(12 mois),(12 mois)
-
-Table 2
-,,,,,,
-,Brut,Amort. & Prov,Net,%,Net,%
-Capital souscrit non appelé (0),,,,,,
-Actif Immobilisé,,,,,,
-Frais d'établissement,,,,,,
-Recherche et développement,,,,,,
-Concessions, brevets, marques, logiciels et droits similaires,73 865,59 132,14 733,1,07,28 879,1,61
-Fonds commercial,125 916,,125 916,9,12,125 916,7,02
-Autres immobilisations incorporelles,,,,,,
-Avances & acomptes sur immobilisations incorporelles,,,,,,
-Terrains,,,,,,
-Constructions,151 684,40 265,111 419,8,07,123 971,6,91
-Installations techniques, matériel & outillage industriels,855 985,765 055,90 930,6,59,89 760,5,00
-Autres immobilisations corporelles,413 691,308 792,104 899,7,60,164 469,9,17
-Immobilisations en cours,,,,,,
-Avances & acomptes,,,,,,
-Participations évaluées selon mise en équivalence,,,,,,
-Autres Participations,15 000,,15 000,1,09,15 000,0,84
-Créances rattachées à des participations,,,,,,
-Autres titres immobilisés,,,,,,
-Prêts,,,,,,
-Autres immobilisations financières,10 280,,10 280,0,74,10 280,0,57
-TOTAL (I),1 646 420,1 173 243,473 177,34,29,558 274,31,12
-Actif circulant,,,,,,
-Matières premières, approvisionnements,191 844,5 000,186 844,13,54,192 606,10,74
-En cours de production de biens,,,,,,
-En cours de production de services,,,,,,
-Produits intermédiaires et finis Marchandises,,,,,,
-Avances & acomptes versés sur commandes,,,,,,
-Clients et comptes rattachés,496 437,68 526,427 911,31,01,601 281,33,51
-Autres créances,,,,,,
-. Fournisseurs débiteurs,,,,,,
-. Personnel,11 668,,11 668,0,85,782,0,04
-. Organismes sociaux,3 849,,3 849,0,28,1 906,0,11
-. Etat, impôts sur les bénéfices,,,,,,
-. Etat, taxes sur le chiffre d'affaires,19 834,,19 834,1,44,27 688,1,54
-. Autres,4 718,,4 718,0,34,10 700,0,60
-Capital souscrit et appelé, non versé,,,,,,
-Valeurs mobilières de placement,,,,,,
-Instruments financiers à terme et jetons détenus,,,,,,
-Disponibilités,185 403,,185 403,13,44,298 492,16,64
-Charges constatées d'avance,66 510,,66 510,4,82,102 389,5,71
-TOTAL (II),980 262,73 526,906 736,65,71,1 235 843,68,88
-Charges à répartir sur plusieurs exercices (III),,,,,,
-Primes de remboursement des obligations V),,,,,,
-Ecarts de conversion et différences d'évaluation actif V)
-:selected:,,,,,,
-TOTAL ACTIF (0 à V),2 626 683,1 246 770,1 379 913,100,00,1 794 116,100,00
-`
-
-const layoutDataCsv = 
-`
-
-Données tabulaires:
-Table 1
-ACTIF,Exercice clos le 30/09/2023,Exercice précédent 30/09/2022
-,(12 mois),(12 mois)
-
-Table 2
-,,,,,,
-,Brut,Amort. & Prov,Net,%,Net,%
-Capital souscrit non appelé (0),,,,,,
-Actif Immobilisé,,,,,,
-Frais d'établissement,,,,,,
-Recherche et développement,,,,,,
-Concessions, brevets, marques, logiciels et droits similaires,73 865,59 132,14 733,1,07,28 879,1,61
-Fonds commercial,125 916,,125 916,9,12,125 916,7,02
-Autres immobilisations incorporelles,,,,,,
-Avances & acomptes sur immobilisations incorporelles,,,,,,
-Terrains,,,,,,
-Constructions,151 684,40 265,111 419,8,07,123 971,6,91
-Installations techniques, matériel & outillage industriels,855 985,765 055,90 930,6,59,89 760,5,00
-Autres immobilisations corporelles,413 691,308 792,104 899,7,60,164 469,9,17
-Immobilisations en cours,,,,,,
-Avances & acomptes,,,,,,
-Participations évaluées selon mise en équivalence,,,,,,
-Autres Participations,15 000,,15 000,1,09,15 000,0,84
-Créances rattachées à des participations,,,,,,
-Autres titres immobilisés,,,,,,
-Prêts,,,,,,
-Autres immobilisations financières,10 280,,10 280,0,74,10 280,0,57
-TOTAL (I),1 646 420,1 173 243,473 177,34,29,558 274,31,12
-Actif circulant,,,,,,
-Matières premières, approvisionnements,191 844,5 000,186 844,13,54,192 606,10,74
-En cours de production de biens,,,,,,
-En cours de production de services,,,,,,
-Produits intermédiaires et finis Marchandises,,,,,,
-Avances & acomptes versés sur commandes,,,,,,
-Clients et comptes rattachés,496 437,68 526,427 911,31,01,601 281,33,51
-Autres créances,,,,,,
-. Fournisseurs débiteurs,,,,,,
-. Personnel,11 668,,11 668,0,85,782,0,04
-. Organismes sociaux,3 849,,3 849,0,28,1 906,0,11
-. Etat, impôts sur les bénéfices,,,,,,
-. Etat, taxes sur le chiffre d'affaires,19 834,,19 834,1,44,27 688,1,54
-. Autres,4 718,,4 718,0,34,10 700,0,60
-Capital souscrit et appelé, non versé,,,,,,
-Valeurs mobilières de placement,,,,,,
-Instruments financiers à terme et jetons détenus,,,,,,
-Disponibilités,185 403,,185 403,13,44,298 492,16,64
-Charges constatées d'avance,66 510,,66 510,4,82,102 389,5,71
-TOTAL (II),980 262,73 526,906 736,65,71,1 235 843,68,88
-Charges à répartir sur plusieurs exercices (III),,,,,,
-Primes de remboursement des obligations V),,,,,,
-Ecarts de conversion et différences d'évaluation actif V)
-:selected:,,,,,,
-TOTAL ACTIF (0 à V),2 626 683,1 246 770,1 379 913,100,00,1 794 116,100,00
-`
+  
 
 
 async function main(file, companyName, updateStatus, updateProgress) {
@@ -216,13 +141,13 @@ async function main(file, companyName, updateStatus, updateProgress) {
         const combinedData = gatherData(firstGlanceData, readContent, layoutDataCsv);
         await saveDebugFile("step4_combined_data.txt", combinedData);
         updateProgress(80);
-        `
 
         // Step 5: Generate structured data and summary using OpenAI
         updateStatus("Generating structured summary...");
         const structuredData = await generateCaseSummary(combinedData, layoutDataCsv);
         await saveDebugFile("step5_structured_data.json", structuredData);
         updateProgress(90);
+        `
 
         // Step 6: Generate PDF report
         updateStatus("Creating PDF report...");

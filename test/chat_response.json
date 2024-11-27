@@ -1,0 +1,168 @@
+{
+  "Entreprise": {
+    "Nom": "Tech Innovations SAS",
+    "Telephone": "+33 1 23 45 67 89",
+    "Code_APE": "6201Z",
+    "Code_SIREN": "123456789",
+    "Registre_du_Commerce": "RCS Paris B 123 456 789",
+    "Dénomination_Sociale": "Tech Innovations",
+    "Sigle_Ou_Enseigne": "TI",
+    "Adresse_Siege_Social": "10 Rue de la Technopole, 75000 Paris, France",
+    "Objet_Social": "Développement de solutions logicielles innovantes pour le secteur technologique.",
+    "Forme_Juridique_Capital_Social": "Société par Actions Simplifiée au capital de 100,000 €",
+    "Commencement_Exploitation": "01/01/2010",
+    "Exploitation_du_Fonds": "Production et commercialisation de logiciels d'analyse des données."
+  },
+  "Dirigeant": {
+    "Nom": "Dupont",
+    "Prenom": "Éric",
+    "Nationalité": "Française",
+    "Telephone_Portable": "+33 6 12 34 56 78",
+    "Email": "eric.dupont@techinnovations.fr"
+  },
+  "Group_Info": {
+    "Structure_du_Groupe": "Tech Innovations Group",
+    "Structure_Affiliees": [
+      "Innovate Software Ltd",
+      "Data Solutions LLC"
+    ],
+    "Historique_Acquisitions": [
+      {
+        "Date": "15/03/2020",
+        "Montant": "3,000,000 €",
+        "Description": "Acquisition de Innovate Software Ltd pour étendre les capacités de développement logiciel."
+      }
+    ],
+    "Capital_Increase": [
+      {
+        "Date": "10/06/2021",
+        "Montant": "500,000 €",
+        "Description": "Augmentation de capital pour financer le développement d'un nouveau produit."
+      }
+    ],
+    "Autres_Informations": {
+      "Labels": [
+        "ISO 9001",
+        "ISO 27001"
+      ],
+      "Partenariats": [
+        "Partenariat stratégique avec CloudTech Inc."
+      ]
+    }
+  },
+  "Analyse_Financiere": {
+    "Vue_d_ensemble": "Tech Innovations SAS affiche une santé financière satisfaisante malgré un ralentissement du marché. La société a su conserver un bon niveau de trésorerie et réduire sa dépendance aux dettes à long terme. Les principaux risques résident dans la volatilité du marché technologique et la concurrence accrue. Les perspectives de croissance sont favorables grâce à l'innovation continue.",
+    "Actifs": {
+      "Actifs_Immobilises": "Les actifs immobilisés représentent une part importante mais stable du bilan. L'acquisition de nouvelles technologies a permis de maintenir un fort potentiel opérationnel malgré un amortissement régulier, soutenant les performances à long terme.",
+      "Actifs_Circulants": "Les actifs circulants sont caractérisés par une gestion efficace des créances clients et une réduction notable des délais de paiement. La liquidité demeure suffisante pour couvrir les engagements à court terme, bien que les stocks aient légèrement augmenté, nécessitant une vigilance accrue."
+    },
+    "Passifs": {
+      "Capitaux_Propres": "Les capitaux propres ont connu une augmentation suite à la récente levée de fonds, renforçant la stabilité financière de l'entreprise. Cela leur permet de financer des opérations stratégiques sans recours excessif à la dette.",
+      "Dettes_Financieres": "Les dettes financières sont bien gérées avec une structure favorable qui permet à l'entreprise d'investir dans de nouveaux projets sans compromettre sa trésorerie immédiate.",
+      "Dettes_d_Exploitation": "Les dettes d'exploitation sont maîtrisées avec des conditions de paiement favorables négociées avec les fournisseurs, optimisant ainsi la gestion des ressources à court terme."
+    },
+    "Resultats_Financiers": {
+      "Resultat_Exploitation": "Le résultat d'exploitation affiche une progression grâce à une augmentation des revenus s'accompagnant d'un contrôle rigoureux des charges opérationnelles. La rentabilité opérationnelle reste robuste dans un environnement concurrentiel.",
+      "Resultat_Net": "Le résultat net présente une légère diminution en raison d'éléments exceptionnels non récurrents. Cependant, la performance sous-jacente reste vigoureuse, assurant une croissance durable.",
+      "Ratios_Financiers": "Les ratios financiers témoignent d'une bonne rentabilité avec une marge bénéficiaire nette stable de 15%. Le ratio de solvabilité se maintient à un niveau confortable, assurant la capacité de l'entreprise à honorer ses obligations."
+    },
+    "Perspectives": "Pour améliorer davantage la performance, la société pourrait envisager de diversifier ses produits et d'explorer des partenariats internationaux. La focalisation sur l'efficacité opérationnelle et l'optimisation des coûts permettra d'améliorer la compétitivité sur le long terme."
+  },
+  "Donnee_Tabulaire": {
+    "Bilan_actif": "Date,2021,2022,2023\nLicences,5000,5500,6000\nFonds de commerce,15000,14500,14000\nImmobilisations incorporelles,20000,19500,19000\nConstructions,30000,32000,34000\nMatériel et outillage,10000,9500,9000\nMobilier,8000,7500,7000\nImmobilisations corporelles,65000,65000,65000\nActions SEMAB,7000,6000,5000\nCautions versées,3000,2500,2000\nImmobilisations financières,10000,11000,12000\nTotal actif immobilisé net,70000,70000,70000\nStocks et en-cours,2000,2500,3000\nClients,15000,15000,15500\nFournisseurs,3500,3800,3900\nFiscales et sociales,5000,5000,5000\nFactor,2000,2200,2500\nCréances,25000,25000,25000\nComptes courants,10000,10500,11000\nDisponibilités,15000,15000,15000\nTotal actif circulant net,60000,60000,60000\nCharges constatées d avances,1000,1200,1500\nComptes de régularisation,500,700,900\nTOTAL ACTIF,135500,136200,136900\n",
+    "Bilan_passif": "Date,2021,2022,2023\nCapital social,50000,51000,52000\nRéserves,10000,9000,8000\nReport à nouveau,5000,6000,7000\nRésultat de l exercice,10000,12000,14000\nCapitaux propres,75000,78000,81000\nSubventions,5000,5000,5000\nFonds propres,80000,83000,86000\nEmprunts bancaires,20000,19000,18000\nDettes financières M/L terme,15000,15500,16000\nAcomptes clients,3000,3500,4000\nDettes fournisseurs,6000,6500,7000\nRémunérations dues,3000,3500,4000\nOrganismes sociaux,5000,5000,5000\nImpôts et taxes,3000,3100,3200\nDettes fiscales et sociales,4000,4500,5000\nDettes d exploitation,9000,9000,9000\nComptes courants,10000,11000,12000\nDettes hors exploitation,6000,6500,7000\nDécouverts,500,700,900\nDettes financières court terme,8000,7500,7000\nTOTAL PASSIF,135500,136200,136900\n",
+    "Compte_de_resultat": "Date,2021,2022,2023\nChiffre d affaires,100000,105000,110000\nAchats de marchandises,-30000,-32000,-34000\nSous-traitance,-10000,-10500,-11000\nTransports,-5000,-5300,-5500\nMarge brute,55000,56500,58000\nCharges liées à l exploitation,-20000,-20500,-21000\nImpôts et taxes,-5000,-5200,-5400\nMasse salariale,-30000,-31000,-32000\nAutres charges liées à l activité,-2000,-2500,-3000\nMarge opérationnelle,2000,3300,4600\nCharges restantes,-1000,-1200,-1400\nEBE hors groupe,1000,2100,3200\nFacturation holding,-500,-550,-600\nEBE,500,1550,2600\nAutres produits et charges,-1000,-1200,-1400\nDotations aux Amortissements et Provisions,-2000,-2200,-2400\nRésultat d exploitation,-2500,-1850,-1200\nRésultat financier,500,600,700\nRésultat exceptionnel,0,-200,-300\nImpôt sur les Sociétés,-500,-550,-600\nRésultat net,-2500,-2000,-1600\nCapacité d Autofinancement,2000,3000,4000\nAcquisition actif,-1000,-1100,-1200\nAcomptes versés,-300,-400,-500\nPrise participation SEMAB,-500,-550,-600\nVariation compte courant,1000,1100,1200\nDéblocage d emprunts,2000,2100,2200\nRemboursement d emprunts,-1500,-1600,-1700\nFlux d exploitation,200,300,400\n"
+  },
+  "Diagramme_Baton": {
+    "Abscisse": [
+      "Q1 2021",
+      "Q2 2021",
+      "Q3 2021",
+      "Q4 2021",
+      "Q1 2022"
+    ],
+    "Ordonnee": [
+      150000,
+      175000,
+      160000,
+      180000,
+      190000
+    ],
+    "Moyenne": 171000,
+    "Unite": "Euros"
+  },
+  "Diagramme_Circulaire": {
+    "Categories": [
+      "Immobilier",
+      "Actions",
+      "Obligations",
+      "Liquidités"
+    ],
+    "Valeurs": [
+      250000,
+      400000,
+      230000,
+      120000
+    ],
+    "Total": 1000000
+  },
+  "Courbes": {
+    "Periodes": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ],
+    "Libelle_Metrique": "Prix Moyen",
+    "Valeurs_Metrique": [
+      45,
+      48,
+      46,
+      50,
+      55
+    ],
+    "Variation_Percent": [
+      0,
+      6.67,
+      -4.17,
+      8.7,
+      10
+    ],
+    "Unite": "Euros"
+  },
+  "Histogramme": {
+    "Categories": [
+      "0-100k",
+      "100k-200k",
+      "200k-300k",
+      "300k-400k",
+      "400k+"
+    ],
+    "Frequence": [
+      10,
+      15,
+      25,
+      30,
+      20
+    ],
+    "Unite": "Comptes"
+  },
+  "Radar": {
+    "Indicateurs": [
+      "Satisfaction Client",
+      "Innovation Produit",
+      "Responsabilité Sociétale",
+      "Rentabilité",
+      "Croissance du Chiffre d'Affaires"
+    ],
+    "Scores": [
+      85,
+      75,
+      70,
+      80,
+      90
+    ],
+    "Echelle": "0 à 100"
+  }
+}
