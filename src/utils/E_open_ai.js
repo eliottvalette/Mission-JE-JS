@@ -23,15 +23,22 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            model: "gpt-4o-2024-08-06", // Ensure compatible model
+            model: "gpt-4o",
             messages: [
-                { role: "system", content: "Provide structured data following the schema." },
-                { role: "user", content: "Extract company financial information." },
+                { 
+                    role: "system", 
+                    content: systemPrompt[promptType]
+                },
+                { 
+                    role: "user", 
+                    content: userData 
+                },
             ],
             response_format: {
                 type: "json_schema",
                 json_schema: schema,
             },
+            temperature: promptType === "charts" ? 0.7 : 0.1,
         }),
     });
     
@@ -44,34 +51,35 @@ async function generateCaseSummary(combinedData, layoutData) {
     const firmDataSchema = Config.firmData;
     const firmInfoSchema = Config.firmInfo;
     const firmChartsSchema = Config.firmCharts;
+    const operationPrecision = Config.operationPrecision
 
-    // Generate data JSON
-    const dataJSON = await callAPI(layoutData, firmDataSchema, "data");
+    // Generate CSVs First Pass
+    const csv_first_pass = await callAPI(layoutData, firmDataSchema, "data");
+    await new Promise(resolve => setTimeout(resolve, 30_000));
 
     // Second pass for data completion
     const promptSecondPass = `
-        Voici le CSV incomplet:
-        ${dataJSON}
-        Complète-le avec les tableaux suivants:
-        ${layoutData}
+        Voici le CSV incomplet: ${csv_first_pass} \n
+        Complète-le avec les tableaux suivants: ${layoutData} \n
+        Par ailleurs : ${operationPrecision}\n
     `;
-    const completedDataJSON = await callAPI(
-        promptSecondPass,
-        firmDataSchema,
-        "data",
-        true
-    );
+
+    // Generate CSVs Second Pass
+    const csv_second_pass = await callAPI(promptSecondPass, firmDataSchema, "data");
+    await new Promise(resolve => setTimeout(resolve, 30_000));
 
     // Generate info JSON
     const infoJSON = await callAPI(combinedData, firmInfoSchema, "info");
+    await new Promise(resolve => setTimeout(resolve, 30_000));
 
     // Generate charts JSON
     const chartsJSON = await callAPI(combinedData, firmChartsSchema, "charts");
+    await new Promise(resolve => setTimeout(resolve, 30_000));
 
     // Merge and return results
     return {
         ...JSON.parse(infoJSON),
-        ...JSON.parse(completedDataJSON),
+        ...JSON.parse(csv_second_pass),
         ...JSON.parse(chartsJSON),
     };
 }

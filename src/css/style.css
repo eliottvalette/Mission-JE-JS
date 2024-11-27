@@ -11,7 +11,7 @@ body {
     overflow: hidden;
 }
 
-/* Container Styling with Rotating Glow */
+/* Container Styling*/
 .container {
     text-align: center;
     background: #2a2a2a;
@@ -176,4 +176,23 @@ input[type="text"]::placeholder {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 30px rgba(144, 0, 255, 0.5);
     transition: width 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* DOwnload Links */
+.download-link {
+    text-align: center;
+    background: #2a2a2a;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.download-link a {
+    color : white;
+}
+
+.download-link a:hover {
+    color : rgb(196, 196, 196);
 }

@@ -23,7 +23,7 @@ async function perplexityFirstGlance(companyName) {
                     - Adresse Siège Social :
                     - Objet Social :
                     - Forme Juridique & Capital Social :
-                    - Commencement d’Exploitation :
+                    - Commencement d Exploitation :
                     - Exploitation du Fonds :
 
                     Dirigeant :

@@ -86,7 +86,7 @@ function preparePandasData(data) {
         }
     }
 
-    return { htmlDfInDict };
+    return { htmlDfInDict, dfsInDict };
 }
 
 function formatNumberWithSpaces(num) {

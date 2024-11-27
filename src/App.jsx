@@ -8,6 +8,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [statusMessage, setStatusMessage] = useState("Préparation de l'envoi...");
   const [loading, setLoading] = useState(false);
+  const [downloadLink, setDownloadLink] = useState(null);
 
   const handleFileSubmit = async (file, companyName) => {
     setLoading(true);
@@ -16,8 +17,13 @@ const App = () => {
 
     try {
       // Call the pipeline function with update callbacks
-      await main(file, companyName, setStatusMessage, setProgress);
+      const linkHtml = await main(file, companyName, setStatusMessage, setProgress);
 
+      if (linkHtml) {
+          setDownloadLink(linkHtml); // Set the link HTML
+      } else {
+          setStatusMessage("Une erreur s'est produite.");
+      }
       setStatusMessage("Terminé !");
     } catch (error) {
       console.error("Error in processing:", error);
@@ -28,17 +34,27 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Analysez vos PDF facilement</h1>
-      <p>
-        Chargez un document PDF pour l analyser et générer automatiquement un
-        rapport structuré.
-        <br />
-        <strong>Limite :</strong> 35 pages maximum par document.
-      </p>
-      <FileUpload onSubmit={handleFileSubmit} />
-      {loading && <ProgressBar progress={progress} statusMessage={statusMessage} />}
-    </div>
+    <>
+      <div className="container">
+        <h1>Analysez vos PDF facilement</h1>
+        <p>
+          Chargez un document PDF pour l analyser et générer automatiquement un
+          rapport structuré.
+          <br />
+          <strong>Limite :</strong> 35 pages maximum par document.
+        </p>
+        <FileUpload onSubmit={handleFileSubmit} />
+        {loading && <ProgressBar progress={progress} statusMessage={statusMessage} />}
+      </div>
+      {downloadLink && (
+                  <div
+                      className="download-link"
+                      dangerouslySetInnerHTML={{ __html: downloadLink }}
+                  />
+              )
+      }
+    </>
+    
   );
 };
 

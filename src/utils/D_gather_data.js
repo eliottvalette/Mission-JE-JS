@@ -1,12 +1,5 @@
 import PropTypes from "prop-types";
 
-/**
- * Combines text and tabular data into a single structured string.
- * @param {string} firstGlance - Initial data overview from Perplexity API.
- * @param {Array} readContent - Text content extracted from the Read model.
- * @param {string} layoutTables - Tabular data in CSV format.
- * @returns {string} Combined and filtered data as a single string.
- */
 function gatherData(firstGlance, readContent, layoutTables) {
     // Process text content from the first 5 pages
     const first5Pages = JSON.stringify(
