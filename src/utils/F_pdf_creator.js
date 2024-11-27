@@ -2,27 +2,24 @@ import html2pdf from "html2pdf.js";
 import Handlebars from "handlebars";
 import Config from "./config/config";
 import preparePandasData from "./Fa_csv_builder";
-import { generateAllCharts, renderHtmlWithCharts } from "./Fb_charts_builder";
+import { generateAllCharts } from "./Fb_charts_builder";
 
 async function generatePdfReport(data, pdfOutputName = "output.pdf") {
-    const { htmlDfInDict } = preparePandasData(data);
+    // Process data into tables
+    const { htmlDfInDict, dfsInDict } = preparePandasData(data);
 
-    const chartsData = generateAllCharts(data);
-    const chartsHtml = renderHtmlWithCharts(chartsData);
+    const chartsData = await generateAllCharts(data);
 
     const template = Handlebars.compile(Config.htmlTemplate);
     const renderedHtml = template({
         ...data,
         tableHtml: htmlDfInDict,
-        chartsHtml: chartsHtml,
     });
-
-    for (const chart of chartsData) {
-        await chart.toBlob();
-    }
 
     console.log("Rendered HTML:", renderedHtml);
 
+
+    // PDF options
     const options = {
         filename: pdfOutputName,
         html2canvas: {
@@ -37,8 +34,8 @@ async function generatePdfReport(data, pdfOutputName = "output.pdf") {
         },
     };
 
+    // Generate PDF from the hidden container
     await html2pdf().set(options).from(renderedHtml).save();
 }
-
 
 export { generatePdfReport };

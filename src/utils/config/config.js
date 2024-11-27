@@ -208,8 +208,17 @@ const Config = {
                 </div>
 
                 <div class="page-break">
-                <h2>Visualisation des Données</h2>
-                    {{{chartsHtml}}}
+                    <h2>Visualisation des Données</h2>
+                    
+                    <div class="chart-section">
+                        <h3>Diagramme Baton</h3>
+                        <img src="{{chartsData.Diagramme_Baton}}" alt="Diagramme Baton" style="width: 100%; max-width: 600px;"/>
+                    </div>
+                
+                    <div class="chart-section">
+                        <h3>Diagramme Circulaire</h3>
+                        <img src="{{chartsData.Diagramme_Circulaire}}" alt="Diagramme Circulaire" style="width: 100%; max-width: 600px;"/>
+                    </div>
                 </div>
             </div>
         </body>

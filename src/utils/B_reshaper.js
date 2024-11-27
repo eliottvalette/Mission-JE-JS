@@ -17,7 +17,6 @@ function transformJsonToCsv(layoutTables) {
                     row[cell.column_index] = cell.content;
                 }
             });
-
             rows.push(row.join(","));
         }
 
