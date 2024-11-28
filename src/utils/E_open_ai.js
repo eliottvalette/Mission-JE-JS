@@ -27,7 +27,7 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
             messages: [
                 { 
                     role: "system", 
-                    content: systemPrompt[promptType]
+                    content: systemPrompt
                 },
                 { 
                     role: "user", 
@@ -57,6 +57,8 @@ async function generateCaseSummary(combinedData, layoutData) {
     const csv_first_pass = await callAPI(layoutData, firmDataSchema, "data");
     await new Promise(resolve => setTimeout(resolve, 30_000));
 
+    console.log('csv first pass', csv_first_pass);
+
     // Second pass for data completion
     const promptSecondPass = `
         Voici le CSV incomplet: ${csv_first_pass} \n
@@ -67,14 +69,17 @@ async function generateCaseSummary(combinedData, layoutData) {
     // Generate CSVs Second Pass
     const csv_second_pass = await callAPI(promptSecondPass, firmDataSchema, "data");
     await new Promise(resolve => setTimeout(resolve, 30_000));
+    console.log('csv second pass', csv_second_pass);
 
     // Generate info JSON
     const infoJSON = await callAPI(combinedData, firmInfoSchema, "info");
     await new Promise(resolve => setTimeout(resolve, 30_000));
+    console.log('info json', infoJSON);
 
     // Generate charts JSON
     const chartsJSON = await callAPI(combinedData, firmChartsSchema, "charts");
     await new Promise(resolve => setTimeout(resolve, 30_000));
+    console.log('charts json', chartsJSON);
 
     // Merge and return results
     return {

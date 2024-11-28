@@ -6,82 +6,190 @@ const Config = {
             <meta charset="UTF-8">
             <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
             <style>
-            body { padding: 5%; font-family: 'Roboto', Arial, sans-serif; color: #333; }
-            .first-page-block { background-color: #f2f2f2; border: 4px solid #ccc; padding: 10%; text-align: center; }
-            .page-header { background-color: #ffffff; border: 2px solid #2e6c80; text-align: center; margin-bottom: 8%; }
-            h1 { color: #2e6c80; text-align: center; }
-            h2 { color: #2e6c80; border-bottom: 2px solid #2e6c80; }
-            h3 { color: #2e6c80}
-            .section { margin: 20px 0; }
-            .data-field { font-weight: bold; color: #555; }
-            .value { color: #000; }
-            .section-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-            .section-table th, .section-table td { border: 1px solid #ddd; padding: 8px; }
-            .section-table th { background-color: #f2f2f2; color: #333; }
+            /* ======= General Styles ======= */
+            body {
+                padding: 5%;
+                font-family: 'Roboto', Arial, sans-serif;
+                color: #333;
+                background-color: #ffffff;
+            }
 
-            /* Styling for the CSV table */
+            .page-wrapper {
+                padding: 2cm;
+                margin: 0;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                background: white;
+            }
+
+            /* ======= Header Styles ======= */
+            .first-page-block {
+                background-color: #f2f2f2;
+                border: 4px solid #ccc;
+                padding: 10%;
+                text-align: center;
+            }
+
+            .page-header {
+                background-color: #ffffff;
+                border: 2px solid #2e6c80;
+                text-align: center;
+                margin-bottom: 8%;
+            }
+
+            h1 {
+                color: #2e6c80;
+                text-align: center;
+                font-size: 2em;
+                margin-bottom: 0.5em;
+            }
+
+            h2 {
+                color: #2e6c80;
+                border-bottom: 2px solid #2e6c80;
+                padding-bottom: 0.3em;
+                margin-top: 1.5em;
+                margin-bottom: 0.75em;
+                font-size: 1.5em;
+            }
+
+            h3 {
+                color: #2e6c80;
+                font-size: 1.2em;
+                margin-top: 1em;
+                margin-bottom: 0.5em;
+            }
+
+            /* ======= Section Styles ======= */
+            .section {
+                margin: 20px 0;
+            }
+
+            .data-field {
+                font-weight: bold;
+                color: #555;
+            }
+
+            .value {
+                color: #000;
+            }
+
+            /* ======= Table Styles ======= */
+            .section-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
+
+            .section-table th,
+            .section-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            .section-table th {
+                background-color: #f2f2f2;
+                color: #333;
+                text-align: left;
+            }
+
+            /* Styling for the CSV tables */
             .csv-table {
                 width: 100%;
-                border-collapse: collapse; 
+                border-collapse: collapse;
                 margin-top: 20px;
-                table-layout: fixed;
+                table-layout: auto; /* Allows table to adjust layout based on content */
                 font-size: 14px;
                 color: #333;
                 background-color: #fff;
             }
 
-            /* Header styling (first row) */
-            .csv-table tr:first-child th{
+            /* Repeat table headers on each page */
+            .csv-table thead {
+                display: table-header-group;
+            }
+
+            .csv-table tfoot {
+                display: table-footer-group;
+            }
+
+            /* Header row styling */
+            .csv-table tr:first-child th {
                 background-color: #2e6c80 !important;
                 color: #fff !important;
                 font-weight: 700 !important;
                 text-align: center;
-                padding: 10px; /* Padding for a better appearance */
+                padding: 10px; /* Enhances appearance */
                 border: 1px solid #ddd; /* Light border for separation */
             }
 
             /* Regular cell styling */
-            .csv-table td, .csv-table th {
-                border: 1px solid #ddd; 
-                padding: 8px; 
-                text-align: center; 
-                vertical-align: top; 
+            .csv-table td,
+            .csv-table th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+                vertical-align: top;
                 word-wrap: break-word;
                 text-overflow: ellipsis;
-                white-space: normal; 
-                max-width: 150px;
+                white-space: normal;
+                max-width: 150px; /* Adjust as needed */
             }
 
-            /* Helping categories */
+            /* Allow table rows to break across pages */
+            .csv-table,
+            .csv-table th,
+            .csv-table td {
+                page-break-inside: auto;
+                break-inside: avoid;
+            }
+
+            .csv-table tr {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            /* Helping categories row styling */
             .csv-table tr.helping-category th,
             .csv-table tr.helping-category td {
-                background-color: #e7f0ff; /* Light blue background for helping rows */
+                background-color: #e7f0ff; /* Light blue background */
                 color: #2e6c80; /* Blue text */
-                font-weight: bold; /* Bold text */
+                font-weight: bold;
             }
 
-
-            /* Responsive design */
-            @media (max-width: 768px) {
-                .csv-table td {
-                    font-size: 12px; /* Smaller font size for mobile */
-                    padding: 5px; /* Reduce padding for small screens */
-                }
-
-                .csv-table th {
-                    font-size: 13px; /* Smaller font size for headers */
-                    padding: 8px;
-                }
+            /* ======= Chart Styles ======= */
+            .chart-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                margin: 20px 0;
+                gap: 20px; /* Adds spacing between charts */
             }
 
-            
-            /* Page break properties */
-            .page-break { page-break-before: always; }
+            .chart-container img {
+                width: 300px;
+                height: auto;
+                border: 2px solid #ddd;
+                border-radius: 5px; /* Rounded corners for a sleek look */
+                padding: 10px;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                page-break-inside: avoid;
+            }
 
+            /* ======= Page Breaks ======= */
+            .page-break {
+                page-break-before: always;
+            }
+
+            /* ======= @page Rules ======= */
             @page {
                 size: A4;
-                margin: 2cm;
+                margin: 20mm;
             }
+
             @page {
                 @top-center {
                     content: "Bilan Économique & Social";
@@ -95,20 +203,36 @@ const Config = {
                     font-size: 12px;
                 }
             }
-            .page-wrapper {
-                padding: 2cm;
-                margin: 0;
-                box-sizing: border-box;
-                width: 100%;
-                height: 100%;
-                background: white;
+
+            /* ======= Responsive Design ======= */
+            @media (max-width: 768px) {
+                .csv-table td {
+                    font-size: 12px; /* Smaller font size for mobile */
+                    padding: 5px; /* Reduce padding for small screens */
+                }
+
+                .csv-table th {
+                    font-size: 13px; /* Smaller font size for headers */
+                    padding: 8px;
+                }
             }
+
+            @media (max-width: 768px) {
+                .chart-container img {
+                    max-width: 90%; /* Scale down charts on small devices */
+                    margin: auto;
+                }
+            }
+
+            .chart-container img {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
             </style>
         </head>
         <body>
-            <div class="page-wrapper">
-
-                <div class="section">
+            <div class="section">
                     <div class="first-page-block">
                         <h1>BILAN ÉCONOMIQUE & SOCIAL</h1>
                     </div>
@@ -176,7 +300,6 @@ const Config = {
 
                 <div class="section page-break">
                     <h2>4. Analyse Financière</h2>
-                    <h2>4. Analyse Financière</h2>
                     <p><span class="data-field">Vue d'ensemble:</span> <span class="value">{{ Analyse_Financiere.Vue_d_ensemble }}</span></p>
                     
                     <h3>Actifs</h3>
@@ -199,12 +322,22 @@ const Config = {
 
                 <div class="section page-break">
                     <h2>Tableau des Données Importées</h2>
-                    <h3>Bilan Actif</h3>
+                        <h3>Bilan Actif</h3>
                         {{{tableHtml.Bilan_actif}}}
                     <h3>Bilan Passif</h3>
                         {{{tableHtml.Bilan_passif}}}
                     <h3>Compte de résultat</h3>
                         {{{tableHtml.Compte_de_resultat}}}
+                </div>
+
+                <div class="section page-break">
+                    <h3>Visualisation des Données</h3>
+                    <div class="chart-container">
+                        <img src="{{imageBar}}" alt="Bar Chart">
+                        <img src="{{imagePie}}" alt="Pie Chart">
+                        <img src="{{imageLine}}" alt="Line Chart">
+                        <img src="{{imageRadar}}" alt="Radar Chart">
+                    </div>
                 </div>
             </div>
         </body>
