@@ -28,31 +28,31 @@ async function main(file, companyName, updateStatus, updateProgress) {
         // Step 1: Analyze PDF with Azure
         updateStatus("Analyzing PDF...");
         const { readContent, layoutTables } = await docIntelMain(file);
-        await saveDebugFile("step1_doc_intelligence.json", { readContent, layoutTables });
+        // await saveDebugFile("step1_doc_intelligence.json", { readContent, layoutTables });
         updateProgress(20);
 
         // Step 2: Transform layout data to CSV
         updateStatus("Transforming tables into CSV...");
         const layoutDataCsv = transformJsonToCsv(layoutTables);
-        await saveDebugFile("step2_transformed_csv.csv", layoutDataCsv);
+        // await saveDebugFile("step2_transformed_csv.csv", layoutDataCsv);
         updateProgress(40);
 
         // Step 3: Fetch company data with Perplexity API
         updateStatus("Fetching company details...");
         const firstGlanceData = await perplexityFirstGlance(companyName);
-        await saveDebugFile("step3_perplexity_data.json", firstGlanceData);
+        // await saveDebugFile("step3_perplexity_data.json", firstGlanceData);
         updateProgress(60);
 
         // Step 4: Gather all data
         updateStatus("Preparing data for analysis...");
         const combinedData = gatherData(firstGlanceData, readContent, layoutDataCsv);
-        await saveDebugFile("step4_combined_data.txt", combinedData);
+        // await saveDebugFile("step4_combined_data.txt", combinedData);
         updateProgress(80);
 
         // Step 5: Generate structured data and summary using OpenAI
         updateStatus("Generating structured summary...");
         const structuredData = await generateCaseSummary(combinedData, layoutDataCsv);
-        await saveDebugFile("step5_structured_data.json", structuredData);
+        // await saveDebugFile("step5_structured_data.json", structuredData);
         updateProgress(90);
 
         // Step 6: Generate PDF report

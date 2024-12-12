@@ -44,7 +44,16 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
     
     const responseData = await response.json();
     console.log(responseData);
-    return responseData.choices?.[0]?.message?.content || "{}";
+
+    const content = responseData.choices?.[0]?.message?.content || "{}";
+    const tokenCount = content.split(/\s+/).length;
+
+    // Adjust delay based on token count
+    console.log(`Token count: ${tokenCount} so the delay time is ${tokenCount * 5 * 1000}s`);
+    const delay = Math.min(30000, tokenCount * 5);
+    await new Promise(resolve => setTimeout(resolve, delay));
+
+    return content;
 }
 
 async function generateCaseSummary(combinedData, layoutData) {
@@ -55,8 +64,6 @@ async function generateCaseSummary(combinedData, layoutData) {
 
     // Generate CSVs First Pass
     const csv_first_pass = await callAPI(layoutData, firmDataSchema, "data");
-    await new Promise(resolve => setTimeout(resolve, 30_000));
-
     console.log('csv first pass', csv_first_pass);
 
     // Second pass for data completion
@@ -67,18 +74,15 @@ async function generateCaseSummary(combinedData, layoutData) {
     `;
 
     // Generate CSVs Second Pass
-    const csv_second_pass = await callAPI(promptSecondPass, firmDataSchema, "data");
-    await new Promise(resolve => setTimeout(resolve, 30_000));
+    const csv_second_pass = await callAPI(promptSecondPass, firmDataSchema, "data", true);
     console.log('csv second pass', csv_second_pass);
 
     // Generate info JSON
     const infoJSON = await callAPI(combinedData, firmInfoSchema, "info");
-    await new Promise(resolve => setTimeout(resolve, 30_000));
     console.log('info json', infoJSON);
 
     // Generate charts JSON
     const chartsJSON = await callAPI(combinedData, firmChartsSchema, "charts");
-    await new Promise(resolve => setTimeout(resolve, 30_000));
     console.log('charts json', chartsJSON);
 
     // Merge and return results

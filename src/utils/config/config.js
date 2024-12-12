@@ -324,12 +324,15 @@ const Config = {
                     <h2>Tableau des Données Importées</h2>
                         <h3>Bilan Actif</h3>
                         {{{tableHtml.Bilan_actif}}}
-                    <h3>Bilan Passif</h3>
-                        {{{tableHtml.Bilan_passif}}}
-                    <h3>Compte de résultat</h3>
-                        {{{tableHtml.Compte_de_resultat}}}
                 </div>
-
+                <div class="section page-break">
+                <h3>Bilan Passif</h3>
+                        {{{tableHtml.Bilan_passif}}}
+                </div>
+                <div class="section page-break">
+                <h3>Compte de résultat</h3>
+                    {{{tableHtml.Compte_de_resultat}}}
+                </div>
                 <div class="section page-break">
                     <h3>Visualisation des Données</h3>
                     <div class="chart-container">
