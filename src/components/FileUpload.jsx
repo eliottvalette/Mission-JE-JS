@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 const FileUpload = ({ onSubmit }) => {
   const [file, setFile] = useState(null);
   const [filePlaceholder, setFilePlaceholder] = useState("Sélectionner un fichier");
+  const [groupData, setGroupData] = useState("No data");
   const [companyName, setCompanyName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (file && companyName) {
-      onSubmit(file, companyName);
+      onSubmit(file, companyName, groupData);
     } else {
       alert("Veuillez sélectionner un fichier et entrer un nom d'entreprise.");
     }
@@ -42,6 +43,7 @@ const FileUpload = ({ onSubmit }) => {
           required
         />
       </div>
+      <textarea className="input-text-area" id="firmDataInput" rows="10" cols="50" placeholder="Enter firm data here..." onChange={(e) => setGroupData(e.target.value)}></textarea>
       <button type="submit" className="submit-button">
         Générer un compte rendu structuré
       </button>

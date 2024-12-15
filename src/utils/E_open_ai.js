@@ -10,10 +10,11 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
             ? "Génère un JSON structuré avec une structuration abrégée des comptes en format CSV. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs manquantes doivent être remplacées par 0"
             : "Complete un JSON structuré avec une structuration abrégée des comptes en format CSV. Des chiffres sont manquants voire érronés. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs qui restent manquantes doivent rester égales à 0.",
         charts: "Tu dois générer une réponse structurée au format JSON contenant les informations nécessaires pour créer des graphiques et diagrammes. Assure-toi que chaque tableau ou série de données nécessitant des dimensions égales (par exemple, Abscisse et Ordonnee pour les diagrammes en bâton, ou Periodes, Valeurs_Metrique, et Variation_Percent pour les courbes) contient le même nombre déléments.",
+        organigram: "Génère un JSON structuré avec la structure de l'organigramme de l'entreprise, en utilisant les données fournies.",
     }[promptType];
 
     if (!systemPrompt) {
-        throw new Error("Invalid prompt type. Use info, data, or charts.");
+        throw new Error("Invalid prompt type. Use info, data, charts or organigram.");
     }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -41,6 +42,10 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
             temperature: promptType === "charts" ? 0.7 : 0.1,
         }),
     });
+
+    if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
+    }
     
     const responseData = await response.json();
     console.log(responseData);
@@ -49,7 +54,7 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
     const tokenCount = content.split(/\s+/).length;
 
     // Adjust delay based on token count
-    console.log(`Token count: ${tokenCount} so the delay time is ${tokenCount * 5 * 1000}s`);
+    console.log(`Token count: ${tokenCount} so the delay time is ${tokenCount * 5 / 1000}s`);
     const delay = Math.min(30000, tokenCount * 5);
     await new Promise(resolve => setTimeout(resolve, delay));
 
@@ -93,6 +98,23 @@ async function generateCaseSummary(combinedData, layoutData) {
     };
 }
 
+async function generateOrganigramStructure(firstGlanceData, groupData, companyName) {
+    const organigramSchema = Config.organigramSchema;
+    console.log('organigram schema', organigramSchema);
+    const prompt = `
+    Utilise les données suivantes pour générer la structure de l'organigramme pour l'entreprise ${companyName}:
+    ${firstGlanceData}
+    et les informations supplémentaires données par l'utilisateur :
+    ${groupData}
+    `;
+
+    console.log('organigram prompt', prompt);
+
+    const organigramStructure = await callAPI(prompt, organigramSchema, "organigram");
+    console.log('organigramStructure', organigramStructure);
+    return JSON.parse(organigramStructure);
+}
+
 // PropTypes definitions
 callAPI.propTypes = {
     userData: PropTypes.string.isRequired,
@@ -106,4 +128,9 @@ generateCaseSummary.propTypes = {
     layoutData: PropTypes.string.isRequired,
 };
 
-export { callAPI, generateCaseSummary };
+generateOrganigramStructure.propTypes = {
+    firstGlanceData: PropTypes.string.isRequired,
+    companyName: PropTypes.string.isRequired,
+};
+
+export { callAPI, generateCaseSummary, generateOrganigramStructure };

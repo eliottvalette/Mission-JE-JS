@@ -579,7 +579,7 @@ const Config = {
           ],
           "additionalProperties": false
         }
-      },
+    },
 
 
     firmCharts: {
@@ -715,9 +715,70 @@ const Config = {
             },
             "required": ["Diagramme_Baton", "Diagramme_Circulaire", "Courbes", "Histogramme", "Radar"],
             "additionalProperties": false
-        }
+        },
     },
 
+    organigramSchema: {
+        "name": "Generateur_Organigramme",
+        "strict": true,
+        "schema": {
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "layer": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "label",
+                  "layer"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "string"
+                  },
+                  "to": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "nodes",
+            "edges"
+          ],
+          "additionalProperties": false,
+          "type": "object"
+        }
+    },
+        
 
     operationPrecision: `
       Pour le Bilan Passif:
@@ -757,4 +818,3 @@ const Config = {
   };
   
   export default Config;
-  

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const PERPLEXITY_AI_KEY_JE= import.meta.env.VITE_REACT_PERPLEXITY_AI_KEY_JE
 
-async function perplexityFirstGlance(companyName) {
+async function perplexityFirstGlance(companyName, groupData) {
     const url = "https://api.perplexity.ai/chat/completions";
 
     const payload = {
@@ -41,17 +41,20 @@ async function perplexityFirstGlance(companyName) {
                     Capital :
                     - Augmentations de Capital (Date, Montant, Description) :
 
-                    Autres Informations :
-                    - Labels et Certifications :
-                    - Marques :
-                    - Partenariats Stratégiques :
+                    Autres Informations utiles sur le groupe ou la société :
+                    
 
                     Assure-toi que les informations proviennent de sources fiables et vérifiables. Indique si des données sont indisponibles.
                 `,
             },
             {
                 role: "user",
-                content: `Trouve les informations détaillées pour l'entreprise ${companyName}. Assure-toi d'inclure les détails sur le secteur d'activité et les données financières si elles sont disponibles.`,
+                content: `
+                Trouve les informations détaillées pour l'entreprise ${companyName}. 
+                Assure-toi d'inclure les détails sur le secteur d'activité et les données financières si elles sont disponibles.
+                Voici les informations supplémentaires fournies par l'utilisateur :
+                ${groupData}
+                `,
             },
         ],
     };
@@ -75,6 +78,7 @@ async function perplexityFirstGlance(companyName) {
 
 perplexityFirstGlance.propTypes = {
     companyName: PropTypes.string.isRequired,
+    groupData: PropTypes.string,
 };
 
 export { perplexityFirstGlance };

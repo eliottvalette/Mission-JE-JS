@@ -10,14 +10,14 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [downloadLinks, setDownloadLinks] = useState(null);
 
-  const handleFileSubmit = async (file, companyName) => {
+  const handleFileSubmit = async (file, companyName, groupData) => {
     setLoading(true);
     setProgress(0);
     setStatusMessage("Préparation de l'envoi...");
 
     try {
       // Call the pipeline function with update callbacks
-      const linksHtml = await main(file, companyName, setStatusMessage, setProgress);
+      const linksHtml = await main(file, companyName, groupData, setStatusMessage, setProgress);
 
       if (linksHtml) {
           setDownloadLinks(linksHtml); // Set the link HTML
