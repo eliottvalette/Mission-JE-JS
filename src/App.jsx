@@ -68,6 +68,14 @@ const App = () => {
                         Télécharger le CSV : {csv.name}
                       </a>
                     ))}
+                    <a
+                      href={downloadLinks.org.url}
+                      className="download-link"
+                      download={downloadLinks.org.name}
+                    >
+                      Télécharger le rapport : {downloadLinks.org.name}
+                    </a>
+                    
                 </div>
               )
       }

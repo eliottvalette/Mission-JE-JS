@@ -43,7 +43,7 @@ const FileUpload = ({ onSubmit }) => {
           required
         />
       </div>
-      <textarea className="input-text-area" id="firmDataInput" rows="10" cols="50" placeholder="Enter firm data here..." onChange={(e) => setGroupData(e.target.value)}></textarea>
+      <textarea className="input-text-area" id="firmDataInput" rows="4" cols="50" placeholder="Enter firm data here..." onChange={(e) => setGroupData(e.target.value)}></textarea>
       <button type="submit" className="submit-button">
         Générer un compte rendu structuré
       </button>

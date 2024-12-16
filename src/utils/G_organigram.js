@@ -1,8 +1,11 @@
 export function drawOrganigram(orgData, canvasId, companyName) {
     const canvas = document.getElementById(canvasId);
+    canvas.width = 1400;
+    canvas.height = 1000;
+    document.body.appendChild(canvas);
     const ctx = canvas.getContext('2d');
 
-    const layerColors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1'];
+    const layerColors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFA1', '#A1FF33'];
 
     // Draw nodes dynamically
     function drawNodes(nodes) {
@@ -85,12 +88,12 @@ export function drawOrganigram(orgData, canvasId, companyName) {
     drawNodes(orgData.nodes);
     drawEdges(orgData.edges, orgData.nodes);
 
-    // Convert canvas to image and create download link
-    const organigramImage = canvas.toDataURL('image/png');
+    // Export as PNG
+    const pngData = canvas.toDataURL('image/png');
     const organigramLink = document.createElement('a');
-    organigramLink.href = organigramImage;
-    organigramLink.download = `${companyName}_Organigram.png`;
-    organigramLink.textContent = 'Download Organigram';
+    organigramLink.href = pngData;
+    organigramLink.download = 'organigram.png';
+    organigramLink.textContent = `Télécharger l'organigram de ${companyName}`;
 
     return organigramLink;
 }
