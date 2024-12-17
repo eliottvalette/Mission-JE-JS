@@ -42,7 +42,11 @@ async function perplexityFirstGlance(companyName, groupData) {
                     - Augmentations de Capital (Date, Montant, Description) :
 
                     Autres Informations utiles sur le groupe ou la société :
-                    
+
+                    Informations sur l'ensemble des acteurs ou entités cités dans les informations données par l'utilisateur :
+                    Exemple :
+                    - Société A : Secteur d'activité, Role dans le groupe...
+                    - Société B : Secteur d'activité, Role dans le groupe...
 
                     Assure-toi que les informations proviennent de sources fiables et vérifiables. Indique si des données sont indisponibles.
                 `,

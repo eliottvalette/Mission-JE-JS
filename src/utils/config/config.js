@@ -100,7 +100,7 @@ const Config = {
                 border-collapse: collapse;
                 margin-top: 20px;
                 table-layout: auto; /* Allows table to adjust layout based on content */
-                font-size: 14px;
+                font-size: 12px;
                 color: #333;
                 background-color: #fff;
             }
@@ -128,7 +128,7 @@ const Config = {
             .csv-table td,
             .csv-table th {
                 border: 1px solid #ddd;
-                padding: 8px;
+                padding: 4px;
                 text-align: center;
                 vertical-align: top;
                 word-wrap: break-word;
@@ -201,26 +201,6 @@ const Config = {
                     content: "Page " counter(page);
                     color: #777;
                     font-size: 12px;
-                }
-            }
-
-            /* ======= Responsive Design ======= */
-            @media (max-width: 768px) {
-                .csv-table td {
-                    font-size: 12px; /* Smaller font size for mobile */
-                    padding: 5px; /* Reduce padding for small screens */
-                }
-
-                .csv-table th {
-                    font-size: 13px; /* Smaller font size for headers */
-                    padding: 8px;
-                }
-            }
-
-            @media (max-width: 768px) {
-                .chart-container img {
-                    max-width: 90%; /* Scale down charts on small devices */
-                    margin: auto;
                 }
             }
 
@@ -732,7 +712,8 @@ const Config = {
                     "type": "string"
                   },
                   "label": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Nom de l'entité\nRôle de l'entité ou secteur d'activité"
                   },
                   "layer": {
                     "type": "integer"

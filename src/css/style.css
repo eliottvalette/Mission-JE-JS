@@ -27,7 +27,6 @@ body {
     min-height: 100vh;
     margin: 0;
     background: var(--color-background);
-    overflow: hidden;
     padding: 1rem; /* Added padding for better spacing on smaller screens */
 }
 
@@ -154,6 +153,31 @@ input[type="text"]:-webkit-autofill::first-line {
     color: #ffffff !important; /* Assure que la première ligne respecte la couleur */
 }
 
+/* Text Area Styling */
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background: var(--color-input-bg) !important;
+    color: #ffffff;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background var(--transition-speed) ease;
+}
+
+textarea:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    background: var(--color-input-focus-bg);
+}
+
+/* Placeholder Text Styling */
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
 
 /* Submit Button Styling */
 .submit-button {
@@ -197,8 +221,6 @@ input[type="text"]:-webkit-autofill::first-line {
     transform: translateY(0);
     box-shadow: 0 0 10px #1d1dea75, 0 0 20px #5e59e180;
 }
-
-
 
 /* Spinner Styling */
 .spinner {
