@@ -137,19 +137,6 @@ const Config = {
                 max-width: 150px; /* Adjust as needed */
             }
 
-            /* Allow table rows to break across pages */
-            .csv-table,
-            .csv-table th,
-            .csv-table td {
-                page-break-inside: auto;
-                break-inside: avoid;
-            }
-
-            .csv-table tr {
-                page-break-inside: avoid;
-                break-inside: avoid;
-            }
-
             /* Helping categories row styling */
             .csv-table tr.helping-category th,
             .csv-table tr.helping-category td {
@@ -302,15 +289,15 @@ const Config = {
 
                 <div class="section page-break">
                     <h2>Tableau des Données Importées</h2>
-                        <h3>Bilan Actif</h3>
-                        {{{tableHtml.Bilan_actif}}}
+                    <h3>Bilan Actif</h3>
+                    {{{tableHtml.Bilan_actif}}}
                 </div>
                 <div class="section page-break">
-                <h3>Bilan Passif</h3>
-                        {{{tableHtml.Bilan_passif}}}
+                    <h3>Bilan Passif</h3>
+                    {{{tableHtml.Bilan_passif}}}
                 </div>
                 <div class="section page-break">
-                <h3>Compte de résultat</h3>
+                    <h3>Compte de résultat</h3>
                     {{{tableHtml.Compte_de_resultat}}}
                 </div>
                 <div class="section page-break">
@@ -421,12 +408,12 @@ const Config = {
                                 "Labels": {
                                     "type": "array",
                                     "items": {"type": "string"},
-                                    "description": "Labels ou certifications obtenus par le groupe."
+                                    "description": "Labels ou certifications obtenus par le groupe, le cas échéant. Sinon donner des informations plus larges sur le groupe."
                                 },
                                 "Partenariats": {
                                     "type": "array",
                                     "items": {"type": "string"},
-                                    "description": "Partenariats stratégiques établis par le groupe."
+                                    "description": "Partenariats stratégiques établis par le groupe, le cas échéant. Sinon donner des informations plus larges sur le groupe."
                                 }
                             },
                             "required": ["Labels", "Partenariats"],

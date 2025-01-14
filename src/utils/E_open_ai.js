@@ -55,7 +55,7 @@ async function callAPI(userData, schema, promptType, secondPass = false) {
 
     // Adjust delay based on token count
     console.log(`Token count: ${tokenCount} so the delay time is ${tokenCount * 5 / 1000}s`);
-    const delay = Math.min(30000, tokenCount * 5);
+    const delay = Math.min(50000, tokenCount * 5);
     await new Promise(resolve => setTimeout(resolve, delay));
 
     return content;
