@@ -73,13 +73,13 @@ a:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 15px rgba(74, 144, 226, 0.6), 0 0 30px rgba(74, 193, 226, 0.3);
+    box-shadow: 0 0 2px rgba(74, 144, 226, 0.6), 0 0 4px rgba(74, 193, 226, 0.3);
     margin-top: 1.5rem;
 }
 
 .back-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.7), 0 0 10px rgba(74, 193, 226, 0.5);
+    box-shadow: 0 0 1px rgba(74, 144, 226, 0.7), 0 0 2px rgba(74, 193, 226, 0.5);
 }
 
 .back-button:active {

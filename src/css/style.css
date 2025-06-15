@@ -1,54 +1,60 @@
 /* CSS Variables for Easy Theme Management */
 :root {
     --font-family: 'Roboto', sans-serif;
-    --color-text: #f5f5f5;
-    --color-background: linear-gradient(135deg, #050505, #0f0f0f);
-    --color-container-bg: #1a1a1a;
-    --color-header: #ffffff;
-    --color-header-shadow: rgba(255, 255, 255, 0.2);
-    --color-button-bg: linear-gradient(45deg, #4a90e2, #4ac1e2);
-    --color-button-hover-bg: linear-gradient(45deg, #357ab8, #3ab2b8);
-    --color-input-bg: rgba(34, 34, 34, 0.7);
-    --color-input-focus-bg: rgba(34, 34, 34, 0.9);
-    --color-progress-bg: linear-gradient(90deg, rgba(144, 0, 255, 0.8), rgba(255, 0, 255, 0.8));
-    --color-download-link: #ffffff;
-    --color-download-link-hover: #c4c4c4;
+    --text: #f5f5f5;
+    --background: linear-gradient(135deg, #050505, #0f0f0f);
+    --container-bg: #1a1a1a;
+    --header: #ffffff;
+    --header-shadow: rgba(255, 255, 255, 0.2);
+    --button-bg: linear-gradient(45deg, #4a90e2, #4ac1e2);
+    --button-hover-bg: linear-gradient(45deg, #357ab8, #3ab2b8);
+    --input-bg: rgba(34, 34, 34, 0.7);
+    --input-focus-bg: rgba(34, 34, 34, 0.9);
+    --progress-bg: linear-gradient(90deg, rgba(144, 0, 255, 0.8), rgba(255, 0, 255, 0.8));
+    --download-link: #ffffff;
+    --download-link-hover: #c4c4c4;
     --transition-speed: 0.3s;
     --border-radius: 10px;
+    --grid-size: 90px;
+    --grid-color: rgba(114, 108, 108, 0.654);
 }
 
 /* General Body Styling */
 body {
     font-family: var(--font-family);
-    color: var(--color-text);
+    color: var(--text);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: var(--color-background);
+    background: black;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
     padding: 1rem; /* Added padding for better spacing on smaller screens */
 }
 
 /* Container Styling */
 .container {
     text-align: center;
-    background: var(--color-container-bg);
+    background: var(--container-bg);
     padding: 2.5rem 2rem; /* Increased padding for better spacing */
     border-radius: var(--border-radius);
     width: 100%;
     max-width: 500px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.32);
 }
 
 /* Header Styling */
 h1 {
     font-size: 2rem;
-    color: var(--color-header);
+    color: var(--header);
     margin-bottom: 1.5rem;
-    text-shadow: 0 2px 5px var(--color-header-shadow);
+    text-shadow: 0 2px 5px var(--header-shadow);
 }
 
 /* Form Styling */
@@ -75,14 +81,14 @@ input[type="file"] {
 .file-upload-button {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background: var(--color-button-bg);
+    background: var(--button-bg);
     color: #ffffff;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background var(--transition-speed) ease;
-    box-shadow: 0 0 15px rgba(74, 144, 226, 0.6), 0 0 30px rgba(74, 193, 226, 0.3);
+    box-shadow: 0 0 2px rgba(74, 144, 226, 0.6), 0 0 4px rgba(74, 193, 226, 0.3);
     margin: 1rem 0;
     position: relative;
     overflow: hidden;
@@ -106,14 +112,14 @@ input[type="file"] {
 }
 
 .file-upload-button:hover {
-    background: var(--color-button-hover-bg);
+    background: var(--button-hover-bg);
     transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(74, 144, 226, 0.7), 0 0 40px rgba(74, 193, 226, 0.5);
+    box-shadow: 0 0 2px rgba(74, 144, 226, 0.7), 0 0 4px rgba(74, 193, 226, 0.5);
 }
 
 .file-upload-button:active {
     transform: translateY(0);
-    box-shadow: 0 0 10px rgba(74, 144, 226, 0.5), 0 0 20px rgba(74, 193, 226, 0.3);
+    box-shadow: 0 0 1px rgba(74, 144, 226, 0.5), 0 0 2px rgba(74, 193, 226, 0.3);
 }
 
 /* Text Input Styling */
@@ -123,7 +129,7 @@ input[type="text"] {
     padding: 0.8rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 5px;
-    background: var(--color-input-bg);
+    background: var(--input-bg);
     color: #ffffff;
     font-size: 1rem;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -134,7 +140,7 @@ input[type="text"] {
 input[type="text"]:focus {
     border-color: #4a90e2;
     box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
-    background: var(--color-input-focus-bg);
+    background: var(--input-focus-bg);
 }
 
 /* Placeholder Text Styling */
@@ -144,9 +150,9 @@ input[type="text"]::placeholder {
 }
 
 input[type="text"]:-webkit-autofill {
-    background: var(--color-input-bg) !important;
+    background: var(--input-bg) !important;
     color: #ffffff !important; /* Couleur du texte */
-    -webkit-box-shadow: 0 0 0px 1000px var(--color-input-bg) inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px var(--input-bg) inset !important;
 }
 
 input[type="text"]:-webkit-autofill::first-line {
@@ -160,7 +166,7 @@ textarea {
     padding: 0.8rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 5px;
-    background: var(--color-input-bg) !important;
+    background: var(--input-bg) !important;
     color: #ffffff;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
     outline: none;
@@ -170,7 +176,7 @@ textarea {
 textarea:focus {
     border-color: #4a90e2;
     box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
-    background: var(--color-input-focus-bg);
+    background: var(--input-focus-bg);
 }
 
 /* Placeholder Text Styling */
@@ -191,7 +197,7 @@ textarea::placeholder {
     cursor: pointer;
     overflow: hidden; /* Prevent the pseudo-element from overflowing */
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background var(--transition-speed) ease;
-    box-shadow: 0 0 15px #1d1dea95, 0 0 30px #5e59e196;
+    box-shadow: 0 0 2px #1d1dea95, 0 0 4px #5e59e196;
 }
 
 .submit-button::after {
@@ -214,12 +220,12 @@ textarea::placeholder {
 .submit-button:hover {
     background: linear-gradient(45deg, #1551b0, #4a47c4);
     transform: translateY(-3px);
-    box-shadow: 0 0 20px #1d1dea88, 0 0 40px #5e59e1a3;
+    box-shadow: 0 0 2px #1d1dea88, 0 0 4px #5e59e1a3;
 }
 
 .submit-button:active {
     transform: translateY(0);
-    box-shadow: 0 0 10px #1d1dea75, 0 0 20px #5e59e180;
+    box-shadow: 0 0 1px #1d1dea75, 0 0 2px #5e59e180;
 }
 
 /* Spinner Styling */
@@ -275,7 +281,7 @@ textarea::placeholder {
 .progress-bar {
     height: 100%;
     width: 0%; /* Initial width */
-    background: var(--color-progress-bg);
+    background: var(--progress-bg);
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 30px rgba(144, 0, 255, 0.5);
     transition: width var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -288,7 +294,7 @@ textarea::placeholder {
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    background: var(--color-container-bg);
+    background: var(--container-bg);
     margin-top: 1.5rem;
     padding: 2rem;
     border-radius: var(--border-radius);
@@ -301,14 +307,14 @@ textarea::placeholder {
 
 /* Download Link Styling */
 .download-link {
-    color: var(--color-download-link);
+    color: var(--download-link);
     text-decoration: none;
     font-weight: bold;
     transition: color var(--transition-speed) ease;
 }
 
 .download-link:hover {
-    color: var(--color-download-link-hover);
+    color: var(--download-link-hover);
     text-decoration: underline;
 }
 
