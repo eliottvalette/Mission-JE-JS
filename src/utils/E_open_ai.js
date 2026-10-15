@@ -1,64 +1,11 @@
 import PropTypes from "prop-types";
 import Config from './config/config';
-
-const OPENAI_API_KEY = import.meta.env.VITE_REACT_OPEN_AI_KEY_JE;
+import { requestServer } from './server_api';
 
 async function callAPI(userData, schema, promptType, secondPass = false) {
-    const systemPrompt = {
-        info: "Génère un JSON structuré avec des informations clés sur lentreprise, en résumant les données financières et les aspects importants des comptes.",
-        data: secondPass
-            ? "Génère un JSON structuré avec une structuration abrégée des comptes en format CSV. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs manquantes doivent être remplacées par 0"
-            : "Complete un JSON structuré avec une structuration abrégée des comptes en format CSV. Des chiffres sont manquants voire érronés. Aucune valeur ne doit être inventée; toutes les valeurs doivent être confirmées à 100%. Les valeurs qui restent manquantes doivent rester égales à 0.",
-        charts: "Tu dois générer une réponse structurée au format JSON contenant les informations nécessaires pour créer des graphiques et diagrammes. Assure-toi que chaque tableau ou série de données nécessitant des dimensions égales (par exemple, Abscisse et Ordonnee pour les diagrammes en bâton, ou Periodes, Valeurs_Metrique, et Variation_Percent pour les courbes) contient le même nombre déléments.",
-        organigram: "Génère un JSON structuré avec la structure de l'organigramme de l'entreprise, en utilisant les données fournies.",
-    }[promptType];
-
-    if (!systemPrompt) {
-        throw new Error("Invalid prompt type. Use info, data, charts or organigram.");
-    }
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            model: "gpt-4o",
-            messages: [
-                { 
-                    role: "system", 
-                    content: systemPrompt
-                },
-                { 
-                    role: "user", 
-                    content: userData 
-                },
-            ],
-            response_format: {
-                type: "json_schema",
-                json_schema: schema,
-            },
-            temperature: promptType === "charts" ? 0.7 : 0.1,
-        }),
-    });
-
-    if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
-    }
-    
-    const responseData = await response.json();
-    console.log(responseData);
-
-    const content = responseData.choices?.[0]?.message?.content || "{}";
-    const tokenCount = content.split(/\s+/).length;
-
-    // Adjust delay based on token count
-    console.log(`Token count: ${tokenCount} so the delay time is ${tokenCount * 5 / 1000}s`);
-    const delay = Math.min(50000, tokenCount * 5);
-    await new Promise(resolve => setTimeout(resolve, delay));
-
-    return content;
+  const result = await requestServer('openai-analysis', { userData, schema, promptType, secondPass });
+  if (typeof result.content !== 'string') throw new Error('Invalid analysis response.');
+  return result.content;
 }
 
 async function generateCaseSummary(combinedData, layoutData) {

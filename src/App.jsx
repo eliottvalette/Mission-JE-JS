@@ -9,8 +9,10 @@ const App = () => {
   const [statusMessage, setStatusMessage] = useState("Préparation de l'envoi...");
   const [loading, setLoading] = useState(false);
   const [downloadLinks, setDownloadLinks] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleFileSubmit = async (file, companyName, groupData) => {
+    setErrorMessage('');
     setLoading(true);
     setProgress(0);
     setStatusMessage("Préparation de l'envoi...");
@@ -26,7 +28,7 @@ const App = () => {
       }
       setStatusMessage("Terminé !");
     } catch (error) {
-      console.error("Error in processing:", error);
+      setErrorMessage(error instanceof Error ? error.message : "L’analyse a échoué.");
       setStatusMessage("Une erreur s'est produite.");
     } finally {
       setLoading(false);
@@ -44,6 +46,7 @@ const App = () => {
           <strong>Limite :</strong> 35 pages maximum par document.
         </p>
         <FileUpload onSubmit={handleFileSubmit} />
+        {errorMessage && <p role="alert">{errorMessage}</p>}
         {loading && <ProgressBar progress={progress} statusMessage={statusMessage} />}
       </div>
       {downloadLinks && (

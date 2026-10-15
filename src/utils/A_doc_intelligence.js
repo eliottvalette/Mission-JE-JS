@@ -1,63 +1,19 @@
-import PropTypes from "prop-types";
-import { AzureKeyCredential, DocumentAnalysisClient } from "@azure/ai-form-recognizer";
+import { requestServer } from './server_api';
 
-// Initialize Azure Document Analysis client
-const endpoint = import.meta.env.VITE_REACT_AZURE_ENDPOINT_JE ;
-const key = import.meta.env.VITE_REACT_AZURE_KEY_JE;
-
-if (!endpoint || !key) {
-    throw new Error("Azure credentials are not set in the environment variables.");
+async function analyzeDocument(file, mode) {
+  if (!(file instanceof Blob)) throw new Error('A document file is required.');
+  const body = new FormData();
+  body.append('file', file, file.name || 'document.pdf');
+  body.append('mode', mode);
+  const result = await requestServer('document-analysis', body);
+  if (!Array.isArray(result.result)) throw new Error('Invalid document analysis response.');
+  return result.result;
 }
 
-const client = new DocumentAnalysisClient(endpoint, new AzureKeyCredential(key));
-
-async function extractReadModel(file) {
-    const poller = await client.beginAnalyzeDocument("prebuilt-read", file);
-    const result = await poller.pollUntilDone();
-
-    const pagesContent = result.pages.map((page, pageIndex) => ({
-        page: pageIndex + 1,
-        content: page.lines.map((line) => line.content),
-    }));
-
-    return pagesContent;
+export function extractReadModel(file) { return analyzeDocument(file, 'read'); }
+export function extractLayoutModel(file) { return analyzeDocument(file, 'layout'); }
+export async function docIntelMain(file) {
+  const readContent = await extractReadModel(file);
+  const layoutTables = await extractLayoutModel(file);
+  return { readContent, layoutTables };
 }
-
-async function extractLayoutModel(file) {
-    const poller = await client.beginAnalyzeDocument("prebuilt-layout", file);
-    const result = await poller.pollUntilDone();
-
-    const tables = result.tables.map((table) => ({
-        row_count: table.rowCount,
-        column_count: table.columnCount,
-        cells: table.cells.map((cell) => ({
-            row_index: cell.rowIndex,
-            column_index: cell.columnIndex,
-            content: cell.content,
-        })),
-    }));
-
-    return tables;
-}
-
-async function docIntelMain(file) {
-    const readContent = await extractReadModel(file);
-    const layoutTables = await extractLayoutModel(file);
-
-    return { readContent, layoutTables };
-}
-
-// PropTypes definitions
-extractReadModel.propTypes = {
-    file: PropTypes.instanceOf(File).isRequired,
-};
-
-extractLayoutModel.propTypes = {
-    file: PropTypes.instanceOf(File).isRequired,
-};
-
-docIntelMain.propTypes = {
-    file: PropTypes.instanceOf(File).isRequired,
-};
-
-export { docIntelMain, extractReadModel, extractLayoutModel };

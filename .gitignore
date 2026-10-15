@@ -25,7 +25,6 @@ dist-ssr
 
 # Env
 .env
-eslint.config.js
-package.json
-package-lock.json
-vite.config.js
+
+.env.*
+!.env.example

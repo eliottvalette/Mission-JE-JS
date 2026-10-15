@@ -80,7 +80,7 @@ async function main(file, companyName, groupData, updateStatus, updateProgress) 
     } catch (error) {
         updateStatus("Une erreur s'est produite lors du traitement.");
         console.error("Error in processing pipeline:", error);
-        return null;
+        throw error;
     }
 }
 
